@@ -1,0 +1,56 @@
+.Carousel {
+    overflow-x: hidden;
+}
+
+.SliderItem1 {
+    background-image: url('https://cdn.pixabay.com/photo/2015/08/18/01/49/bus-893204_1280.jpg');
+}
+
+.SliderItem2 {
+    background-image: url('https://cdn.pixabay.com/photo/2016/01/19/18/02/passengers-1150043_1280.jpg');
+} 
+
+.SliderItem3 {
+    background-image: url('https://cdn.pixabay.com/photo/2015/09/04/23/30/bus-923199_1280.jpg');
+    
+}
+
+.CarouselItem {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: soft-light;
+}
+
+.Caption {
+    position: absolute;
+    top:33%;
+    text-transform: uppercase;
+}
+
+.Caption h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: .3rem;
+    text-shadow: .1rem .1rem .8rem black;
+}
+
+.Caption h3 {
+    font-size: 1.5rem;
+    text-shadow: .1rem .1rem .5rem black;
+    padding-bottom: 1.2rem;
+}
+
+.CarouselItem a {
+    border-width: medium;
+    font-size: 1.1rem;
+    text-shadow: .1rem .1rem .5rem black;
+}
+
+.CarouselItem a:hover {
+    text-shadow: none;
+}
+/*
+https://cdn.pixabay.com/photo/2014/09/04/15/35/collective-435584_1280.jpg
+*/

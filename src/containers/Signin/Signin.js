@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import classes from './Signin.css'
 import Input from '../../components/UI/Input/Input'
 import { Link } from 'react-router-dom';
+
+import * as actions from '../../store/actions/index'
+
 class Signin extends Component{
     state = {
         form:{
@@ -128,6 +131,12 @@ class Signin extends Component{
         )
     }
 
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onSubmitForm: dispatch()
+    }
 }
 
 export default Signin;

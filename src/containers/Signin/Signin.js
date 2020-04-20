@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import classes from './Signin.css'
 import Input from '../../components/UI/Input/Input'
 import { Link } from 'react-router-dom';
+import  { connect } from 'react-redux'
 
 import * as actions from '../../store/actions/index'
 
@@ -96,6 +97,11 @@ class Signin extends Component{
         this.setState({form: updatedForm, validForm: formValidity});
     }
 
+    submitHandler = (event) => {
+        event.preventDefault();
+        this.props.onSignin(this.state.form.email.value, this.state.form.password.value)
+    }
+
 
     render() {
         const formElementsArray = [];
@@ -119,7 +125,7 @@ class Signin extends Component{
         ));
         return(
             <div className={classes.Signin}>
-                <form className="form-signin">
+                <form onSubmit={this.submitHandler} className="form-signin">
                     <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign In</h1>
                     <hr />
                     {inputs}
@@ -135,8 +141,8 @@ class Signin extends Component{
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onSubmitForm: dispatch()
+        onSignin: (email,password) => dispatch(actions.signin(email,password)),
     }
 }
 
-export default Signin;
+export default connect(null,mapDispatchToProps)(Signin);

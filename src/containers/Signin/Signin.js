@@ -3,8 +3,10 @@ import classes from './Signin.css'
 import Input from '../../components/UI/Input/Input'
 import { Link } from 'react-router-dom';
 import  { connect } from 'react-redux'
-
 import * as actions from '../../store/actions/index'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import Alert from '../../components/UI/Alert/Alert';
+import { Redirect } from 'react-router-dom'
 
 class Signin extends Component{
     state = {
@@ -104,6 +106,11 @@ class Signin extends Component{
 
 
     render() {
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to='/' />
+        }
+
         const formElementsArray = [];
         for (let key in this.state.form) {
             formElementsArray.push({
@@ -123,16 +130,31 @@ class Signin extends Component{
                 changed={(event) => this.inputChangeHandler(event, formElement.id)} />
 
         ));
+
+        let errorMessage = null;
+        if (this.props.error) {
+            errorMessage = <Alert type="Danger">Invalid Email or Password. Try Again.</Alert>
+        }
+
+        let form = (
+            <form onSubmit={this.submitHandler} className="form-signin">
+                <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign In</h1>
+                <hr />
+                {errorMessage}
+                {inputs}
+                <p>Don't have an Account?</p>
+                <Link to="signup">Create an Account</Link>
+                <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            </form>)
+        
+        
+        if (this.props.loading) {
+            form = <Spinner />
+        }
         return(
             <div className={classes.Signin}>
-                <form onSubmit={this.submitHandler} className="form-signin">
-                    <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign In</h1>
-                    <hr />
-                    {inputs}
-                    <p>Don't have an Account?</p>
-                    <Link to="signup">Create an Account</Link>
-                    <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                </form>
+                {authRedirect}
+                {form}
             </div>
         )
     }
@@ -145,4 +167,12 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null,mapDispatchToProps)(Signin);
+const mapStateToProps = (state) => {
+    return{
+        loading: state.loading,
+        error: state.error,
+        isAuthenticated: state.token !== null
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Signin);

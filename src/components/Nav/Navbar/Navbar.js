@@ -3,10 +3,10 @@ import classes from './Navbar.css'
 import { NavLink } from 'react-router-dom'
 import logo from '../../../assets/images/Logo.png'
 
-const navbar = () => {
+const navbar = (props) => {
     const styleArray = ['navbar','navbar-expand', 'fixed-top', classes.Navbar]
-    const logoutLink = (1===0) ? <li className={'nav-item'}>
-    <NavLink activeClassName={classes.active} className='nav-link' exact to='/about'>Logout</NavLink>
+    const logoutLink = (props.isAuthenticated) ? <li className={'nav-item'}>
+    <NavLink activeClassName={classes.active} className='nav-link' exact to='/logout'>Logout</NavLink>
 </li> : null;
     return (
         <React.Fragment>
@@ -16,9 +16,9 @@ const navbar = () => {
                     <li className={'nav-item'}>
                         <NavLink activeClassName={classes.active} className='nav-link' exact to='/'>Home</NavLink>
                     </li>
-                    <li className={'nav-item'}>
+                    {(!props.isAuthenticated) ? <li className={'nav-item'}>
                         <NavLink activeClassName={classes.active} className='nav-link' exact to='/schedule'>Bus Schedule</NavLink>
-                    </li>
+                    </li> : null}
                     <li className={'nav-item'}>
                         <NavLink activeClassName={classes.active} className='nav-link' exact to='/about'>About Us</NavLink>
                     </li>

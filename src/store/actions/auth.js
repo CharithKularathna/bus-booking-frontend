@@ -32,12 +32,18 @@ export const signin = (email, password) => {
         }
         axios.post('signin',signinData)
         .then(response => {
-            //console.log(response)
+            console.log(response)
             dispatch(signinSuccess(response.data))
         })
         .catch(err => {
             //console.log(err)
             dispatch(signinFail(err))
         })
+    }
+}
+
+export const logout = () => {
+    return {
+        type: actionTypes.LOGOUT
     }
 }

@@ -31,6 +31,18 @@ const signinFail = (state,action) => {
     })
 }
 
+const logout = (state,action) => {
+    return updateObject(state,{
+        token: null,
+        userID: null,
+        role:null,
+        name:null,
+        email:null,
+        loading:false,
+        error: null
+    })
+}
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.START_SIGNIN:
@@ -39,6 +51,8 @@ const reducer = ( state = initialState, action ) => {
             return signinSuccess(state,action)
         case actionTypes.FAIL_SIGNIN:
             return signinFail(state,action)
+        case actionTypes.LOGOUT:
+            return logout(state,action)
         default: return state;
     }
 };

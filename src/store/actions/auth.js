@@ -126,12 +126,12 @@ export const signup = (formData) => {
         axios.post('signup',formData)
         .then(response => {
             //console.log(response)
-            const message = response.data.message
+            const message = response.message
             dispatch(signupSuccess(message))
         })
         .catch(err => {
-            //console.log(err)
-            const error = err.data.error
+            const error = err.message
+            console.log(error)
             dispatch(signupFail(error))
         })
     }

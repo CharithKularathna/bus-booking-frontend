@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import classes from './Signup.css'
 import Input from '../../components/UI/Input/Input'
-import { connect } from "react-redux"
+import  { connect } from 'react-redux'
+import * as actions from '../../store/actions/index'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import Alert from '../../components/UI/Alert/Alert';
+import { Redirect } from 'react-router-dom'
 
 class Signup extends Component {
     state={
@@ -156,6 +160,19 @@ class Signup extends Component {
         this.setState({form: updatedForm, validForm: formValidity});
     }
 
+    submitHandler = (event) => {
+        event.preventDefault();
+        const formData = {
+            firstName:this.state.form.firstName.value,
+            secondName: this.state.form.lastName.value,
+            email: this.state.form.email.value,
+            password: this.state.form.password.value,
+            phoneNumber: this.state.form.phoneNumber.value,
+            role: "PASSENGER"
+        }
+        this.props.onSubmit(formData)
+    }
+
     render() {
         const formElementsArray = [];
         for (let key in this.state.form) {
@@ -176,23 +193,48 @@ class Signup extends Component {
                 changed={(event) => this.inputChangeHandler(event, formElement.id)} />
 
         ));
-        return(
-            <div className={classes.Signup}>
-            <form className="form-signup">
+        let errorMessage = null;
+
+        if (this.props.error !== null){
+            errorMessage = <Alert type="Danger">{this.props.error}</Alert>
+        }
+
+        if (this.props.error === "Request failed with status code 422"){
+            errorMessage = <Alert type="Danger">An account for the Email already exists</Alert>
+        }
+
+        let form = 
+        (<form className="form-signup" onSubmit={this.submitHandler}>
             <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign Up</h1>
             <hr />
+            {errorMessage}
             {inputs}
             <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-        </form>
+        </form>)
+
+        if (this.props.loading){
+            form = <Spinner />
+        }
+        return(
+            <div className={classes.Signup}>
+                {form}
             </div>
         )
+    }
+}
+const mapStateToProps = (state) => {
+    return{
+        loading: state.signup.loading,
+        message: state.signup.message,
+        error: state.signup.error,
+        isAuthenticated: state.signin.token !== null
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onSubmit: () => dispatch()
+        onSubmit: (formData) => dispatch(actions.signup(formData))
     }
 }
 
-export default Signup;
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

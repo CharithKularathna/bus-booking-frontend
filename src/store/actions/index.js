@@ -4,5 +4,9 @@ export {
     signinSuccess,
     signin,
     logout,
-    authStateSetFromLocal
+    authStateSetFromLocal,
+    startSignup,
+    signupFail,
+    signupSuccess,
+    signup
 } from './auth';

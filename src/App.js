@@ -11,6 +11,7 @@ import Signup from './containers/Signup/Signup'
 import Logout from './containers/Logout/Logout'
 import Dashboard from './containers/Passenger/Dashboard/Dashboard';
 import * as actions from './store/actions/index'
+import Success from './components/UI/Success/Success'
 
 class App extends Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class App extends Component {
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/logout' component={Logout} />
             <Route exact path='/passenger/dashboard' component={Dashboard} />
+            <Route exact path='/signupsuccess' render={() => <Success msg={this.props.successMessage}/>} />
             <Route path='/' component={Home} />
           </Switch>
         </Layout>
@@ -38,6 +40,12 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     onAutoSignin: () => dispatch(actions.authStateSetFromLocal())
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    successMessage: state.signup.message
   }
 }
 

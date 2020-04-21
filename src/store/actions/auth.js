@@ -1,6 +1,35 @@
 import * as actionTypes from './actionTypes'
 import axios from '../../axiosAuth'
 
+//Helpers to Store tokens at sign in
+const mapAuthData = (responseObject) => {
+    return {
+        token: responseObject.token,
+        role: responseObject.user.role,
+        userID: responseObject.user.user.user.uid,
+        email: responseObject.user.user.user.email,
+        name: responseObject.user.user.user.displayName
+    }
+}
+
+
+
+const setTokens = (data) => {
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('role', data.role)
+    localStorage.setItem('userID', data.userID)
+    localStorage.setItem('email', data.email)
+    localStorage.setItem('name', data.name)
+}
+
+const removeTokens = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+    localStorage.removeItem('userID')
+    localStorage.removeItem('email')
+    localStorage.removeItem('name')
+}
+
 //Used for a Spinner while getting the response
 export const startSignin = () => {
     return {
@@ -32,8 +61,10 @@ export const signin = (email, password) => {
         }
         axios.post('signin',signinData)
         .then(response => {
-            console.log(response)
-            dispatch(signinSuccess(response.data))
+            //console.log(response)
+            const authData = mapAuthData(response.data)
+            setTokens(authData)
+            dispatch(signinSuccess(authData))
         })
         .catch(err => {
             //console.log(err)
@@ -43,6 +74,7 @@ export const signin = (email, password) => {
 }
 
 export const logout = () => {
+    removeTokens();
     return {
         type: actionTypes.LOGOUT
     }

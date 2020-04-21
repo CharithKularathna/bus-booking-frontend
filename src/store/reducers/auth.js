@@ -15,12 +15,12 @@ const signinSuccess = (state, action) => {
     return updateObject(state,
         {
             token: action.authData.token,
-            role: action.authData.user.role,
+            role: action.authData.role,
             error:null,
             loading:false,
-            userID: action.authData.user.user.user.uid,
-            email: action.authData.user.user.user.email,
-            name: action.authData.user.user.user.displayName
+            userID: action.authData.userID,
+            email: action.authData.email,
+            name: action.authData.name
         })
 }
 

@@ -167,7 +167,7 @@ class Signup extends Component {
             secondName: this.state.form.lastName.value,
             email: this.state.form.email.value,
             password: this.state.form.password.value,
-            phoneNumber: this.state.form.phoneNumber.value,
+            phoneNumber: '+94' +this.state.form.phoneNumber.value.substring(1),
             role: "PASSENGER"
         }
         this.props.onSubmit(formData)

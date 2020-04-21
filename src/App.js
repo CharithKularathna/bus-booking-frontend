@@ -12,6 +12,7 @@ import Logout from './containers/Logout/Logout'
 import Dashboard from './containers/Passenger/Dashboard/Dashboard';
 import * as actions from './store/actions/index'
 import Success from './components/UI/Success/Success'
+import Activation from './containers/Passenger/Activation/Activation'
 
 class App extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class App extends Component {
             <Route exact path='/logout' component={Logout} />
             <Route exact path='/passenger/dashboard' component={Dashboard} />
             <Route exact path='/signupsuccess' render={() => <Success msg={this.props.successMessage}/>} />
+            <Route exact path='/auth/activate/:token' component={Activation}/>
             <Route path='/' component={Home} />
           </Switch>
         </Layout>

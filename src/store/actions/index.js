@@ -3,5 +3,6 @@ export {
     signinFail,
     signinSuccess,
     signin,
-    logout
+    logout,
+    authStateSetFromLocal
 } from './auth';

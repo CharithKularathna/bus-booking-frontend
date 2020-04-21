@@ -79,3 +79,23 @@ export const logout = () => {
         type: actionTypes.LOGOUT
     }
 }
+
+export const authStateSetFromLocal = () => {
+    return dispatch => {
+        let token = localStorage.getItem('token')
+        if (token === null){
+            dispatch(logout())
+        }
+        else {
+            const authData = {
+                token: token,
+                role: localStorage.getItem('role'),
+                userID: localStorage.getItem('userID'),
+                email: localStorage.getItem('email'),
+                name: localStorage.getItem('name')
+                
+            }
+            dispatch(signinSuccess(authData))
+        }
+    }
+}

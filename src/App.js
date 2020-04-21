@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 import './App.css';
 import Home from './containers/Home/Home'
 import Schedule from './containers/Schedule/Schedule'
 import Layout from './hoc/Layout/Layout'
-import { Route, Switch } from 'react-router-dom';
 import SignIn from './containers/Signin/Signin'
 import Signup from './containers/Signup/Signup'
 import Logout from './containers/Logout/Logout'
 import Dashboard from './containers/Passenger/Dashboard/Dashboard';
+import * as actions from './store/actions/index'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onAutoSignin();
+  }
+
   render() {
     return (
       <div className="App">
@@ -28,4 +35,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAutoSignin: () => dispatch(actions.authStateSetFromLocal())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

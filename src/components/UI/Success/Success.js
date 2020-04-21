@@ -4,7 +4,7 @@ import classes from './Success.css'
 
 const success = (props) => (
     <div className={classes.Success}>
-        <Alert type="Success">props.msg</Alert>
+        <Alert type="Success">Register Successful. Check your Email for the Activation Link</Alert>
     </div>
 )
 

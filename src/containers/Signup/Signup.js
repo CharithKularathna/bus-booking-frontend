@@ -59,7 +59,7 @@ class Signup extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 4,
+                    minLength: 6,
                     maxLength: 20
                 },
                 valid: false,
@@ -74,7 +74,7 @@ class Signup extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 4,
+                    minLength: 6,
                     maxLength: 20,
                     match:true
                 },
@@ -203,6 +203,11 @@ class Signup extends Component {
             errorMessage = <Alert type="Danger">An account for the Email already exists</Alert>
         }
 
+        let successRedirect = null;
+        if (this.props.message !== null){
+            successRedirect = <Redirect to='/signupsuccess'/>
+        }
+
         let form = 
         (<form className="form-signup" onSubmit={this.submitHandler}>
             <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign Up</h1>
@@ -217,6 +222,7 @@ class Signup extends Component {
         }
         return(
             <div className={classes.Signup}>
+                {successRedirect}
                 {form}
             </div>
         )

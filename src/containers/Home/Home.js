@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Slider from '../../components/UI/Slider/Slider'
+import { Redirect } from 'react-router';
+
 
 class Home extends Component {
     render() {
+        let authRedirect = null;
+        if (this.props.role !== null){
+            const roleName = this.props.role.toLowerCase()
+            authRedirect = <Redirect to={'/'+ roleName + '/dashboard'}/>
+        }
         return (
             <React.Fragment>
                 <div>
+                    {authRedirect}
                     <Slider />
                 </div>
             {/*
@@ -50,5 +59,10 @@ class Home extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        role: state.role
+    }
+}
 
-export default Home;
+export default connect(mapStateToProps)(Home);

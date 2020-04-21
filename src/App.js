@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import SignIn from './containers/Signin/Signin'
 import Signup from './containers/Signup/Signup'
 import Logout from './containers/Logout/Logout'
+import Dashboard from './containers/Passenger/Dashboard/Dashboard';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/logout' component={Logout} />
+            <Route exact path='/passenger/dashboard' component={Dashboard} />
             <Route path='/' component={Home} />
           </Switch>
         </Layout>

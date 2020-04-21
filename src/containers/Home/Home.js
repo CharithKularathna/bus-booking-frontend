@@ -61,7 +61,7 @@ class Home extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        role: state.role
+        role: state.signin.role
     }
 }
 

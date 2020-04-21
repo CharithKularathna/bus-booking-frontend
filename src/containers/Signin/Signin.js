@@ -169,9 +169,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return{
-        loading: state.loading,
-        error: state.error,
-        isAuthenticated: state.token !== null
+        loading: state.signin.loading,
+        error: state.signin.error,
+        isAuthenticated: state.signin.token !== null
     }
 }
 

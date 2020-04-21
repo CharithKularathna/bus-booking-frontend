@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classes from './Signup.css'
 import Input from '../../components/UI/Input/Input'
+import { connect } from "react-redux"
 
 class Signup extends Component {
     state={
@@ -185,6 +186,12 @@ class Signup extends Component {
         </form>
             </div>
         )
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onSubmit: () => dispatch()
     }
 }
 

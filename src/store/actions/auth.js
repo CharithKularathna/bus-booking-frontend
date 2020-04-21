@@ -99,3 +99,40 @@ export const authStateSetFromLocal = () => {
         }
     }
 }
+
+export const startSignup = () => {
+    return {
+        type: actionTypes.START_SIGNUP
+    }
+}
+
+export const signupSuccess = (message) => {
+    return {
+        type: actionTypes.SUCCESS_SIGNUP,
+        message: message
+    }
+}
+
+export const signupFail = (error) => {
+    return {
+        type: actionTypes.FAIL_SIGNUP,
+        error: error
+    }
+}
+
+export const signup = (formData) => {
+    return dispatch => {
+        dispatch(startSignup())
+        axios.post('signup',formData)
+        .then(response => {
+            //console.log(response)
+            const message = response.data.message
+            dispatch(signupSuccess(message))
+        })
+        .catch(err => {
+            //console.log(err)
+            const error = err.data.error
+            dispatch(signupFail(error))
+        })
+    }
+}

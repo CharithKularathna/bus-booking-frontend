@@ -3,3 +3,7 @@ export const SUCCESS_SIGNIN = 'SUCCESS_SIGNIN'
 export const FAIL_SIGNIN = 'FAIL_SIGNIN'
 
 export const LOGOUT = 'LOGOUT'
+
+export const START_SIGNUP = 'START_SIGNUP'
+export const SUCCESS_SIGNUP = 'SUCCESS_SIGNUP'
+export const FAIL_SIGNUP = 'FAIL_SIGNUP'

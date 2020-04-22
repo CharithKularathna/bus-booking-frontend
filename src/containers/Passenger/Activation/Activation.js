@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Alert from '../../../components/UI/Alert/Alert'
 import axios from '../../../axiosAuth'
-
 import classes from './Activation.css'
 
 class Activation extends Component {
@@ -32,7 +33,12 @@ class Activation extends Component {
                 content = <Alert type="Danger">{this.state.error}</Alert>
             }
             else {
-                content = <Alert type="Success">{this.state.message}</Alert>
+                content = 
+                <div>
+                    <Alert type="Success">{this.state.message}</Alert>
+                    <Link to='/signin'>Proceed to Sign in</Link>
+                </div>
+                
             }
         } 
         return (

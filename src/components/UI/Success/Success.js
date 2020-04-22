@@ -1,6 +1,7 @@
 import React from 'react'
 import Alert from '../Alert/Alert'
 import classes from './Success.css'
+import { Link } from 'react-router-dom'
 
 const success = (props) => (
     <div className={classes.Success}>

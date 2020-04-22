@@ -214,6 +214,7 @@ class Signup extends Component {
             <hr />
             {errorMessage}
             {inputs}
+            <p><b>By Signing up you agree to the Terms and Conditions of BusBooking</b></p>
             <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
         </form>)
 

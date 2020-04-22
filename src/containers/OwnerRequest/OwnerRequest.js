@@ -2,6 +2,7 @@ import React,{ Component } from 'react'
 import classes from './OwnerRequest.css'
 import Input from '../../components/UI/Input/Input'
 import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class OwnerRequest extends Component{
     state = {
@@ -109,6 +110,7 @@ class OwnerRequest extends Component{
 
     submitHandler = (event) => {
         event.preventDefault();
+        <Redirect to='/' />
     }
 
     

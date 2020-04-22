@@ -1,6 +1,6 @@
 .NavItem {
-    text-indent: 20px;
     line-height: 40px;
+    padding-right: 30px;
 }
 
 .NavItem a{
@@ -10,5 +10,5 @@
 }
 
 .NavItem a:hover{
-    background: #8fd694;
+    text-shadow: .1rem .1rem .5rem black;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from '../../components/Nav/Navbar/Navbar'
+import Sidebar from '../../components/Nav/Sidebar/Sidebar'
 import Footer from '../../components/Nav/Footer/Footer'
 import { connect } from 'react-redux'
 
@@ -8,6 +9,7 @@ class Layout extends Component {
         return (
             <div className='Layout'>
                 <Navbar isAuthenticated={this.props.isAuthenticated} />
+                {this.props.isAuthenticated ? <Sidebar role={this.props.role}/> : null}
                 {this.props.children}
                 <Footer />
             </div>
@@ -17,7 +19,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        isAuthenticated: state.signin.token !== null
+        isAuthenticated: state.signin.token !== null,
+        role: state.signin.role
     }
 }
 

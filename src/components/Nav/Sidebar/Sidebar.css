@@ -2,16 +2,17 @@
     position: absolute;
     /*width: 100%;
     z-index: 1;
-    height: 100%;
+    
     overflow-y: hidden;
-    background: #2d936c;
-    opacity: 0.9;
+    
+    
     */
-    display: none;
+    background: #2d936c;
+    height: 100%;
+    opacity: 0.9;
 }
 
 .SidebarNav{
-    padding: 0;
     list-style: none;
 }
 

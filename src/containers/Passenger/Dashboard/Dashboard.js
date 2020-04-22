@@ -6,8 +6,9 @@ class Dashboard extends Component {
     render() {
         return (
                 <div className={classes.Dash}>
-                   
-                </div>
+                   <h3>Welcome to the Dashboard!</h3>
+                    <hr></hr>    
+               </div>
             
             
         )

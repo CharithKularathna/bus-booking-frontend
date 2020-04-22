@@ -1,4 +1,10 @@
 .Dash {
     margin-top: 50px;
     height: 100vh;
+    margin-left: 240px;
+}
+
+.Dash h3{
+    padding-top: 10px;
+    
 }

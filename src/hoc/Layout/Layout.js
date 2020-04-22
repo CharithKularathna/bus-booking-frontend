@@ -9,7 +9,7 @@ class Layout extends Component {
         return (
             <div className='Layout'>
                 <Navbar isAuthenticated={this.props.isAuthenticated} />
-                {this.props.isAuthenticated ? <Sidebar role={this.props.role}/> : null}
+                {this.props.isAuthenticated ? <Sidebar name={this.props.userName} role={this.props.role}/> : null}
                 {this.props.children}
                 <Footer />
             </div>
@@ -20,7 +20,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
     return{
         isAuthenticated: state.signin.token !== null,
-        role: state.signin.role
+        role: state.signin.role,
+        userName: state.signin.name
     }
 }
 

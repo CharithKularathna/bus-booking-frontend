@@ -16,5 +16,17 @@
     list-style: none;
 }
 
+.Sidebar img{
+    height: 100px;
+    width: 100px;
+    margin-left: 35px;
+    margin-top: 20px;
+    border-radius: 50px;
+}
 
+.Sidebar p{
+    text-align: center;
+    margin-top: 20px;
+
+}
 

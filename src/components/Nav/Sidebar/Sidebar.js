@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './Sidebar.css'
 import NavItem from '../NavItem/NavItem'
+import avatarImage from '../../../assets/images/avatar.png'
 
 const sidebar = (props) => {
     let navList = null;
@@ -61,6 +62,8 @@ const sidebar = (props) => {
 
     return (
         <div className={classes.Sidebar} >
+            <img src={avatarImage} />
+            <p><b>{props.name}</b></p>
             <ul className={classes.SidebarNav}>
                 {navItems}
             </ul>

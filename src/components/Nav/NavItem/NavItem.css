@@ -1,0 +1,14 @@
+.NavItem {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.NavItem a{
+    display: block;
+    text-decoration: none;
+    color: #f5ee9e;
+}
+
+.NavItem a:hover{
+    background: #8fd694;
+}

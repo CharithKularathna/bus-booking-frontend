@@ -1,6 +1,12 @@
 .NavItem {
     line-height: 40px;
     padding-right: 30px;
+    text-transform: uppercase;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    font-weight: 700;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .NavItem a{

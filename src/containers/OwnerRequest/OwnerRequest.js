@@ -3,6 +3,9 @@ import classes from './OwnerRequest.css'
 import Input from '../../components/UI/Input/Input'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
+import Alert from '../../components/UI/Alert/Alert'
+import axios from '../../axiosAuth'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 class OwnerRequest extends Component{
     state = {
@@ -51,8 +54,10 @@ class OwnerRequest extends Component{
             }
             
         },
-        validForm: false
-        
+        validForm: false,
+        loading: false,
+        error: false,
+        message: false,
     }
 
     checkValidity(value, rules) {
@@ -110,7 +115,20 @@ class OwnerRequest extends Component{
 
     submitHandler = (event) => {
         event.preventDefault();
-        this.props.history.push('/');
+        this.setState({loading:true})
+        const formData = {
+            name: this.state.form.name.value,
+            phoneNumber: this.state.form.phoneNumber.value,
+            address:this.state.form.address.value
+        }
+        axios.post('/sendrequest',formData)
+        .then(response=>{
+            this.setState({message:true,error:false,loading:false})
+        })
+        .catch(err => {
+            this.setState({message:false,error:true,loading:false})
+        })
+        //this.props.history.push('/');
     }
 
     
@@ -137,13 +155,17 @@ class OwnerRequest extends Component{
         
         return(
             <div className={classes.OwnerRequest}>
-            <form onSubmit={this.submitHandler} className="form-signin">
+            {!this.state.loading ?
+            (<form onSubmit={this.submitHandler} className="form-signin">
                 <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Request Registration</h1>
                 <p>Enter the Details below and an Admin will contact you for further information</p>
                 <hr />
+                {this.state.message ? <Alert type="Success">Request Sent Successfully!</Alert> : null}
+                {this.state.error ? <Alert type="Danger">Sending Failed! Try Again.</Alert> : null}
                 {inputs}
                 <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Send Request</button>
-            </form>
+            </form>) : <Spinner />
+            }
             </div>
         )
     }

@@ -110,7 +110,7 @@ class OwnerRequest extends Component{
 
     submitHandler = (event) => {
         event.preventDefault();
-        <Redirect to='/' />
+        this.props.history.push('/');
     }
 
     

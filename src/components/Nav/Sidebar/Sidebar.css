@@ -8,8 +8,9 @@
     
     */
     background: #2d936c;
-    height: 100%;
+    height: 150%;
     opacity: 0.9;
+    z-index: 0;
 }
 
 .SidebarNav{

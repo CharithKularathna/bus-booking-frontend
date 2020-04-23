@@ -2,6 +2,7 @@
     background-color: #40474e;
     color: #fdfffc;
     padding: 2rem 0 3rem;
+    z-index: 1;
 }
 
 .Footer img {

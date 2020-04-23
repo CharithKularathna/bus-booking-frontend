@@ -36,7 +36,6 @@ class Activation extends Component {
                 content = 
                 <div>
                     <Alert type="Success">{this.state.message}</Alert>
-                    <Link to='/signin'>Proceed to Sign in</Link>
                 </div>
                 
             }

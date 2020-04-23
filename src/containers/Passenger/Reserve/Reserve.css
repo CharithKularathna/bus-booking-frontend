@@ -42,3 +42,7 @@
 .Reserve a:hover{
     background-color: #8fd694;
 }
+
+.Reserve .Card p{
+    padding: 0;
+}

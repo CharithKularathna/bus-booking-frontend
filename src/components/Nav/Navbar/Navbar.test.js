@@ -10,5 +10,5 @@ describe('<NavBar />',() => {
     beforeEach(() => {
         wrapper = shallow(<NavBar />)
     })
-
+    
 })

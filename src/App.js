@@ -32,6 +32,7 @@ class App extends Component {
             <Route exact path='/logout' component={Logout} />
             <Route exact path='/passenger/dashboard' component={Dashboard} />
             <Route exact path='/owner/dashboard' component={Dashboard} />
+            <Route exact path='/admin/dashboard' component={Dashboard} />
             <Route exact path='/signupsuccess' render={() => <Success msg={this.props.successMessage}/>} />
             <Route exact path='/auth/activate/:token' component={Activation}/>
             <Route exact path='/owner-signup' component={OwnerRequest} />

@@ -13,7 +13,7 @@ const mapAuthData = (responseObject) => {
 }
 
 
-
+//Helper Function
 const setTokens = (data) => {
     localStorage.setItem('token', data.token)
     localStorage.setItem('role', data.role)
@@ -22,6 +22,7 @@ const setTokens = (data) => {
     localStorage.setItem('name', data.name)
 }
 
+//Helper Function
 const removeTokens = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('role')
@@ -36,6 +37,7 @@ export const startSignin = () => {
         type: actionTypes.START_SIGNIN
     }
 }
+
 
 export const signinSuccess = (authData) => {
     return {

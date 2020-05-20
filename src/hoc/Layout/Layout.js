@@ -3,33 +3,33 @@ import React, { Component } from 'react'
 import Navbar from '../../components/Nav/Navbar/Navbar'
 import Sidebar from '../../components/Nav/Sidebar/Sidebar'
 import Footer from '../../components/Nav/Footer/Footer'
-import { Grid } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 
 import { connect } from 'react-redux'
 
 class Layout extends Component {
     render() {
         return (
-            <div className='Layout'>
-                <Grid container >
+            <Grid container justify="center" spacing={1}>
+                <Grid item>
                     <Navbar isAuthenticated={this.props.isAuthenticated} />
                 </Grid>
                 {this.props.isAuthenticated ? 
-                    <Grid container>
-                        <Grid container item xs={3}>
+                    <Grid container style={{marginTop:'50px'}}>
+                        <Grid item xs={2} >
                             <Sidebar name={this.props.userName} role={this.props.role}/>
                         </Grid>
-                        <Grid container item xs={9}>
+                        <Grid item container justify="center" xs={10}>
                             {this.props.children}
                         </Grid> 
                     </Grid> : this.props.children
 
                 }
-                <Grid container item lg={12} xs={12}>
+                <Grid item xs={12}>
                     <Footer />
                 </Grid>
                     
-            </div>
+            </Grid>
         )
     }
 }

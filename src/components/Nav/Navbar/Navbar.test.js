@@ -2,6 +2,8 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 import { configure } from 'enzyme';
+
+//Connecting Enzyme
 import Adapter from 'enzyme-adapter-react-16';
 configure({adapter: new Adapter()});
 
@@ -20,5 +22,8 @@ describe('<NavBar />',() => {
         wrapper = shallow(<NavBar isAuthenticated />)
         expect(wrapper.find("li")).toHaveLength(3)
     })
+
+    
+
 
 })

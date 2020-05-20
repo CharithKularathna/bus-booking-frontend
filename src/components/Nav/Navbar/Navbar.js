@@ -6,7 +6,7 @@ import logo from '../../../assets/images/Logo.png'
 const navbar = (props) => {
     const styleArray = ['navbar','navbar-expand', 'fixed-top', classes.Navbar]
     const logoutLink = (props.isAuthenticated) ? <li className={'nav-item'}>
-    <NavLink activeClassName={classes.active} className='nav-link' exact to='/logout'>Logout</NavLink>
+    <NavLink activeClassName={classes.active} className='nav-link logout-link' exact to='/logout'>Logout</NavLink>
 </li> : null;
     return (
         <React.Fragment>

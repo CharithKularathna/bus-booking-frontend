@@ -2,7 +2,7 @@
     background-color: #40474e;
     color: #fdfffc;
     padding: 2rem 0 3rem;
-    z-index: 1;
+    z-index: 0;
 }
 
 .Footer img {
@@ -42,6 +42,7 @@
     text-align: center;
 }
 
+/*
 @media (max-width: 570px) {
     .Image {
         margin: 0 20%;
@@ -51,3 +52,5 @@
         text-align: center;
     }
 }
+
+*/

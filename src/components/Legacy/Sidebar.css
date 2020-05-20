@@ -1,0 +1,39 @@
+.Sidebar{
+    /*position: absolute;*/
+    /*width: 100%;
+    z-index: 1;
+    
+    overflow-y: hidden;
+    
+    
+    */
+    background: #2d936c;
+    min-height: 100vh;
+    opacity: 0.9;
+    z-index: 0;
+}
+
+.SidebarNav{
+    list-style: none;
+}
+
+.Sidebar img{
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin-top: 20px;*/
+    border-radius: 50px;
+}
+
+.Sidebar p{
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.Sidebar img:hover{
+    cursor: pointer;
+}
+

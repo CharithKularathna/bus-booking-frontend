@@ -10,7 +10,7 @@
     letter-spacing: .1rem;
     font-weight: 700;
     margin-bottom: 4rem;
-    position: fixed;
+    position: relative;
 }
 
 .Navbar a{

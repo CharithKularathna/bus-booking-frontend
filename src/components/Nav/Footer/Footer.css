@@ -1,46 +1,12 @@
 .Footer {
     background-color: #40474e;
     color: #fdfffc;
-    padding: 2rem 0 3rem;
-    z-index: 0;
 }
 
-.Footer img {
-    height: 20rem;
-    margin: 1.5rem 0;
+.FooterLogo {
+    height: 140
 }
 
-.Footer a {
-    color:#fdfffc;
-    padding-bottom: 1.5rem;
-}
-
-.Footer a:hover {
-    padding-bottom: 1.5rem;
-    text-decoration: none;
-    color: #2d936c;
-}
-
-.Footer strong {
-    padding-top: 2rem;
-}
-
-.Footer hr{
-    border-top: .2rem solid #666b71;
-    width: 100%;
-}
-
-.FooterText {
-    padding-top: 4rem;
-}
-
-.Footer h4 {
-    text-transform: uppercase;
-}
-
-.FinalText {
-    text-align: center;
-}
 
 /*
 @media (max-width: 570px) {

@@ -23,26 +23,3 @@
     border: hidden;
 }
 
-.Reserve button:hover{
-    background-color: #8fd694;
-}
-
-.Reserve .Card{
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0px;
-}
-
-.Reserve a{
-    background-color: #2d936c;
-    border: hidden;
-}
-
-.Reserve a:hover{
-    background-color: #8fd694;
-}
-
-.Reserve .Card p{
-    padding: 0;
-}

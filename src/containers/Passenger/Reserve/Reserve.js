@@ -1,5 +1,23 @@
 import React, { Component } from 'react'
-import classes from './Reserve.css'
+import { Card, CardHeader, FormControl, InputLabel, Select, MenuItem, FormHelperText, Grid } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import ReserveSelect from './ReserveSelect/ReserveSelect';
+import { updateObject, stringCapitalize } from '../../../store/utility'
+
+
+const styles = theme => ({
+    heading:{
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        color: theme.palette.text.secondary
+    },
+    mainCard: {
+        width: '100%',
+        height: '15rem',
+
+    },
+    
+})
 
 class Reserve extends Component {
     state = {
@@ -8,81 +26,83 @@ class Reserve extends Component {
             'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura',
 
         ],
-        searched:false
+        searched:false,
+        turn: {
+            start: "",
+            destination: ""
+        }
     }
-
+    /*
     submitHandler = (event) => {
         event.preventDefault();
         setTimeout(()=>{
             this.setState({searched:true})
         },2000)
     }
+    */
+
+    onChangeHandler = (event, field) => {
+        switch (field){
+            case 1:
+                let oldTurn1 = this.state.turn
+                let newTurn1 = updateObject(oldTurn1,{start:event.target.value})
+                this.setState({turn: newTurn1})
+                break;
+            case 2:
+                let oldTurn2 = this.state.turn
+                let newTurn2 = updateObject(oldTurn2,{destination:event.target.value})
+                this.setState({turn: newTurn2})
+                break;
+            default:
+                break;
+
+        }
+    }
 
     render(){
-        const options= this.state.options.map(city => (
-            <option key={city}>{city}</option>
+        const menuItems= this.state.options.map(city => (
+            <MenuItem key={city} value={city.toLowerCase()}>{city}</MenuItem>
         ))
 
+
+        
+        const {classes} = this.props;
+
         return(
-            <div className={classes.Reserve}>
-                <h4><b>Reserve a Seat</b></h4>
-                <hr></hr>
-                <form className="form-inline" onSubmit={this.submitHandler}>
-                    <div className="form-group mx-sm-3 mb-2">
-                        <label for="start">Start</label>
-                        <select id="start" className="form-control">
-                            <option selected>Choose...</option>
-                            {options}
-                        </select>
-                    </div>
-                    <div className="form-group mx-sm-3 mb-2">
-                        <label for="destination">Destination</label>
-                        <select id="destination" className="form-control">
-                            <option selected>Choose...</option>
-                            {options}
-                        </select>
-                    </div>
-                    <div className="form-group mx-sm-3 mb-2">
-                        <label for="date">Date</label>
-                        <input type='date' id='date' className="form-control"></input>
-                    </div>
-                <button type="submit" className="btn btn-primary mb-2">Check for Buses</button>
-                </form>
-                {this.state.searched ?
-                (<React.Fragment>
-                    <hr></hr>
-                    <h4>Search Results</h4>
-                    <div className={"card " + classes.Card}>
-                        <h5 className="card-header">NKK TRAVELS</h5>
-                        <div className="card-body">
-                            <h5 className="card-title">5.00 AM - 9.00 AM</h5>
-                            <p className="card-text">Luxury</p>
-                            <p className="card-text">Bus Number: N/A</p>
-                            <p className="card-text">Route: 122</p>
-                            <a href="#" className="btn btn-primary">View Seats</a>
-                        </div>
-                        <div className='card-footer'>
-                            <p className="text-muted">LKR 800</p>
-                        </div>
-                    </div>
-                    <div className={"card " + classes.Card}>
-                        <h5 className="card-header">SG TRAVELS</h5>
-                        <div className="card-body">
-                        <h5 className="card-title">9.00 AM - 13.00 AM</h5>
-                        <p className="card-text">Semi Luxury</p>
-                        <p className="card-text">Bus Number: N/A</p>
-                        <p className="card-text">Route: 98</p>
-                            <a href="#" className="btn btn-primary">View Seats</a>
-                        </div>
-                        <div className='card-footer'>
-                            <p className="text-muted">LKR 600</p>
-                        </div>
-                    </div>
-                </React.Fragment>)
-                : null}
-            </div>
+            <React.Fragment>
+                <Card className={classes.mainCard}>
+                    <CardHeader className={classes.heading} title="Reserve a Bus Seat by giving the time and bus route"/>
+                        <Grid container>
+                            <Grid item xs={3}>
+                                <ReserveSelect 
+                                    label="Start"
+                                    options={this.state.options}
+                                    turn={this.state.turn}
+                                    changeHandler={(event)=>this.onChangeHandler(event,1)}
+                                    value={this.state.turn.start}
+                                    helperText={"From " + stringCapitalize(this.state.turn.start)}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <ReserveSelect 
+                                    label="Destination"
+                                    options={this.state.options}
+                                    turn={this.state.turn}
+                                    changeHandler={(event)=>{this.onChangeHandler(event,2)}}
+                                    value={this.state.turn.destination}
+                                    helperText={"To " + stringCapitalize(this.state.turn.destination)}
+                                />
+                            </Grid>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={3}></Grid>
+                        </Grid>
+                        
+                </Card>
+                
+                    
+            </React.Fragment> 
         )
     }
 }
 
-export default Reserve;
+export default withStyles(styles)(Reserve);

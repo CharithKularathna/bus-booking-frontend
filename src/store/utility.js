@@ -4,3 +4,7 @@ export const updateObject = (oldObject, updatedValues) => {
         ...updatedValues
     }
 };
+
+export const stringCapitalize = (name) => (
+    name.charAt(0).toUpperCase() + name.slice(1)
+)

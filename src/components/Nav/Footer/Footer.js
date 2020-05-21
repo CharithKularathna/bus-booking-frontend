@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     footer: {
-        
+
     },
     footerLogo: {
       height: 140,

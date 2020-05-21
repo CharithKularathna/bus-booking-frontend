@@ -7,7 +7,7 @@ import { updateObject, stringCapitalize } from '../../../store/utility'
 
 const styles = theme => ({
     heading:{
-        textTransform: 'uppercase',
+        textTransform: 'capitalize',
         textAlign: 'center',
         color: theme.palette.text.secondary
     },
@@ -70,9 +70,9 @@ class Reserve extends Component {
 
         return(
             <React.Fragment>
-                <Card className={classes.mainCard}>
-                    <CardHeader className={classes.heading} title="Reserve a Bus Seat by giving the time and bus route"/>
-                        <Grid container>
+                <Card className={classes.mainCard} style={{backgroundColor:"#F5EE9E"}}>
+                    <CardHeader className={classes.heading} title="Reserve a Bus Seat" subheader="Search a Bus by start, destination and date of your travel"/>
+                        <Grid container spacing={3}>
                             <Grid item xs={3}>
                                 <ReserveSelect 
                                     label="Start"

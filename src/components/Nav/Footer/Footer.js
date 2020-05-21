@@ -1,15 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Paper, Card, Grid, CardMedia, Typography, Button } from '@material-ui/core'
-import { grey, blueGrey } from '@material-ui/core/colors'
+import { Card, Grid, CardMedia, Typography, Button } from '@material-ui/core'
 import Logo from '../../../assets/images/Logo.png'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    background:{
-        backgroundColor: blueGrey[400]
-    },
     footer: {
+        
     },
     footerLogo: {
       height: 140,
@@ -29,8 +26,7 @@ const footer = (props) => {
     const classes = useStyles();
 
     return(
-    <React.Fragment>
-        
+        <React.Fragment>
             <Card style={{height:'300px', backgroundColor:"#2D936C"}} >
                 <Grid container justify="center" >
                     <Grid item xs={4}>
@@ -67,14 +63,8 @@ const footer = (props) => {
                 </Grid>
                 
             </Card>
-                    {/*
-                    <br /><NavLink to='/owner-signup'>Register as a Bus Owner</NavLink>
-                    <br /><NavLink to='/'>Inquiries</NavLink>
-                    <br /><NavLink to='/'>Careers</NavLink>
-                    <br /><br /><strong>Contact Us</strong>
-                    */ }
-                 
-    </React.Fragment>
+                    
+        </React.Fragment>
     )
 }
 

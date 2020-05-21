@@ -1,55 +1,79 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import classes from './Footer.css'
-import { Card, Grid, CardMedia, Typography } from '@material-ui/core'
+import { Paper, Card, Grid, CardMedia, Typography, Button } from '@material-ui/core'
 import { grey, blueGrey } from '@material-ui/core/colors'
 import Logo from '../../../assets/images/Logo.png'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+    background:{
+        backgroundColor: blueGrey[400]
+    },
     footer: {
-      backgroundColor: blueGrey['400'],
     },
     footerLogo: {
       height: 140,
       width: 140
     },
+    link: {
+        "&:hover, &:focus": {
+            textDecoration: 'none',
+            color: "#F5EE9E"
+        }
+    }
   });
 
 
 
 const footer = (props) => {
-    const msClasses = useStyles();
+    const classes = useStyles();
 
     return(
     <React.Fragment>
-        <Card className={classes.Footer} style={{height:'300px'}} >
-            <Grid container justify="center" >
-                <Grid item xs={4}>
+        
+            <Card style={{height:'300px', backgroundColor:"#2D936C"}} >
+                <Grid container justify="center" >
+                    <Grid item xs={4}>
+
+                    </Grid>
+                    <Grid item container justify="center" xs={4}>
+                        <CardMedia
+                            className={classes.footerLogo}
+                            image={Logo}
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                        
+                    </Grid>
+                    <Grid container justify="center" item xs={12}>
+                        <Typography variant='h5' style={{textTransform:'uppercase'}}>
+                        Other Services
+                        </Typography>
+                    </Grid>
+                    <Grid container justify="center" item xs={12}>
+                        <Button color="secondary" variant="text">
+                            <NavLink className={classes.link} to='/owner-signup'>Register as a Bus Owner</NavLink>
+                        </Button>
+                        <Button color="secondary" variant="text">
+                            Contact Us
+                        </Button>
+                    </Grid>
+                    <Grid container justify="center" item xs={12}>
+                        <Typography color="textSecondary">
+                            &copy; Bus Booking Platform
+                        </Typography>
+                    </Grid>
 
                 </Grid>
-                <Grid item container justify="center" xs={4}>
-                    <CardMedia
-                        className={msClasses.footerLogo}
-                        image={Logo}
-                    />
-                </Grid>
-                <Grid item xs={4}>
-                    
-                </Grid>
-                <Typography>
-                    Hi, I am the footer
-                </Typography>
-            </Grid>
-            
-        </Card>
+                
+            </Card>
                     {/*
                     <br /><NavLink to='/owner-signup'>Register as a Bus Owner</NavLink>
                     <br /><NavLink to='/'>Inquiries</NavLink>
                     <br /><NavLink to='/'>Careers</NavLink>
                     <br /><br /><strong>Contact Us</strong>
                     */ }
-                    
+                 
     </React.Fragment>
     )
 }

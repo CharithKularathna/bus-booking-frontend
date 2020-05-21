@@ -22,7 +22,11 @@ class Layout extends Component {
                         <Grid item container justify="center" xs={10}>
                             {this.props.children}
                         </Grid> 
-                    </Grid> : this.props.children
+                    </Grid> :
+                    <Grid item xs={12}>
+                        {this.props.children}
+                    </Grid>
+                     
 
                 }
                 <Grid item xs={12}>

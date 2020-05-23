@@ -16,7 +16,7 @@ const styles = theme => ({
         width: '100%',
         height: '65vh',
         [theme.breakpoints.up('sm')]:{
-            height: '15rem'
+            height: '13rem'
         }
 
     },

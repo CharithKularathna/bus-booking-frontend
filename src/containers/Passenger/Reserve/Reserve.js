@@ -59,6 +59,14 @@ class Reserve extends Component {
         },2000)
     }
     */
+    componentDidMount() {
+        const today = new Date();
+        const currentDate = today.getFullYear()+'-'+String((today.getMonth()+1)).padStart(2, '0')+'-'+String(today.getDate()).padStart(2, '0');
+        let oldTurn = this.state.turn
+        let newTurn = updateObject(oldTurn,{date:currentDate})
+        this.setState({turn: newTurn})
+        console.log(newTurn)
+    }
 
     onChangeHandler = (event, field) => {
         switch (field){
@@ -72,10 +80,11 @@ class Reserve extends Component {
                 let newTurn2 = updateObject(oldTurn2,{destination:event.target.value})
                 this.setState({turn: newTurn2})
                 break;
-            case 2:
+            case 3:
                 let oldTurn3 = this.state.turn
                 let newTurn3 = updateObject(oldTurn3,{date:event.target.value})
                 this.setState({turn: newTurn3})
+                console.log(newTurn3)
                 break;
             default:
                 break;

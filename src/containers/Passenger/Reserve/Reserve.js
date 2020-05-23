@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, CardHeader, MenuItem, Grid, Button } from '@material-ui/core'
+import { Card, CardHeader, MenuItem, Grid, Button, Divider } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import ReserveSelect from './ReserveSelect/ReserveSelect';
 import DatePicker from './DatePicker/DatePicker'
@@ -27,6 +27,12 @@ const styles = theme => ({
     },
     select: {
         marginLeft: '12px'
+    },
+    divider: {
+        marginBottom: '5px',
+        width: '98%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     }
     
 })
@@ -94,6 +100,7 @@ class Reserve extends Component {
             <React.Fragment>
                 <Card className={classes.mainCard} style={{backgroundColor:"#F5EE9E"}}>
                     <CardHeader className={classes.heading} title="Reserve a Bus Seat" subheader="Search a Bus by start, destination and date of your travel"/>
+                    <Divider className={classes.divider} />    
                         <Grid container spacing={3}>
                             <Grid item xs={10} sm={3} className = {classes.select}>
                                 <ReserveSelect 

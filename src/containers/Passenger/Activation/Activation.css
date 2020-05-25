@@ -1,6 +1,7 @@
 .Activation{
     height: 100vh;
     margin-top: 10vh;
+    background: linear-gradient(180deg, #AED9E0 30%, #FDFFFC 90%);
 }
 
 .Activation a{

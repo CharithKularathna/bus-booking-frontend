@@ -41,17 +41,17 @@ const sidebar = (props) => {
                 {
                     link:'/passenger/dashboard/reserve',
                     name:'Reserve a Seat',
-                    icon: <AirlineSeatReclineNormalIcon />
+                    icon: <AirlineSeatReclineNormalIcon fontSize='large' />
                 },
                 {
                     link:'/passenger/dashboard/schedule',
                     name:'Bus Schedule',
-                    icon: <DateRangeIcon />
+                    icon: <DateRangeIcon fontSize='large' />
                 },
                 {
                     link:'/passenger/dashboard/bookings',
                     name:'My Bookings',
-                    icon: <BookmarksIcon />
+                    icon: <BookmarksIcon fontSize='large' />
 
                 }
             ]
@@ -61,17 +61,17 @@ const sidebar = (props) => {
                 {
                     link:'/admin/dashboard/requests',
                     name:'Owner Requests',
-                    icon: <InputIcon />
+                    icon: <InputIcon fontSize='large' />
                 },
                 {
                     link:'/admin/dashboard/analytics',
                     name:'Booking Analytics',
-                    icon: <PollIcon />
+                    icon: <PollIcon fontSize='large' />
                 },
                 {
                     link:'/admin/dashboard/bookings',
                     name:'Approval History',
-                    icon: <HistoryIcon />
+                    icon: <HistoryIcon fontSize='large' />
                 }
             ]
             break;
@@ -80,12 +80,12 @@ const sidebar = (props) => {
                 {
                     link:'/owner/dashboard/addconductor',
                     name:'Add a Conductor',
-                    icon: <PersonAddIcon />
+                    icon: <PersonAddIcon fontSize='large' />
                 },
                 {
                     link:'/owner/dashboard/bookings',
                     name:'Booking History',
-                    icon: <HistoryIcon />
+                    icon: <HistoryIcon fontSize='large' />
                 }
             ]
             break;

@@ -1,5 +1,4 @@
 import React from 'react'
-import classes from './Sidebar.css'
 import NavItem from '../NavItem/NavItem'
 import AirlineSeatReclineNormalIcon from '@material-ui/icons/AirlineSeatReclineNormal';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -83,7 +82,6 @@ const sidebar = (props) => {
                 }
             ]
             break;
-
     }
     return(
         <Drawer
@@ -97,7 +95,14 @@ const sidebar = (props) => {
             <div className={classes.drawerContainer}>
                 <List>
                     {
-
+                        navList.map(item => (
+                            <NavItem
+                                key={item.name}
+                                name={item.name}
+                                link={item.link}>
+                                {item.icon}
+                            </NavItem>
+                        ))
                     }
                 </List>
             </div>

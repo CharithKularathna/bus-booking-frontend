@@ -16,11 +16,18 @@ import { Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     drawer: {
         position:'relative',
-        height: '100%'
-      
+        height: '100%',
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.secondary.light,
+        zIndex:-1
     },
     drawerPaper: {
-        position:'relative'
+        position:'relative',
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.secondary.light,
+        "&:hover, &:focus": {
+            textDecoration: 'none',
+        }
     },
     
   }));

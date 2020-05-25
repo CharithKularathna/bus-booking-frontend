@@ -24,7 +24,7 @@ class Layout extends Component {
                     <Navbar isAuthenticated={this.props.isAuthenticated} />
                 </Grid>
                 {this.props.isAuthenticated ? 
-                    <Grid container style={{marginTop:'50px'}} className={classes.container}>
+                    <Grid container style={{marginTop:'47px'}} className={classes.container}>
                         <Grid item xs={2} >
                             <Sidebar name={this.props.userName} role={this.props.role}/>
                         </Grid>

@@ -2,11 +2,12 @@ import React from 'react'
 import classes from './Navbar.css'
 import { NavLink } from 'react-router-dom'
 import logo from '../../../assets/images/Logo.png'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const navbar = (props) => {
     const styleArray = ['navbar','navbar-expand', 'fixed-top', classes.Navbar]
     const logoutLink = (props.isAuthenticated) ? <li className={'nav-item'}>
-    <NavLink activeClassName={classes.active} className='nav-link logout-link' exact to='/logout'>Logout</NavLink>
+    <NavLink activeClassName={classes.active} className='nav-link logout-link' exact to='/logout'><ExitToAppIcon />&nbsp; Logout</NavLink>
 </li> : null;
     return (
         <React.Fragment>

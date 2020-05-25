@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         backgroundColor: theme.palette.primary.dark,
         color: theme.palette.secondary.light,
-        zIndex:-1
+        zIndex:0
     },
     drawerPaper: {
         position:'relative',

@@ -19,7 +19,7 @@ const styles = theme => ({
     },
     mainCard: {
         width: '100%',
-        height: '65vh',
+        height: '75vh',
         background: "linear-gradient(180deg, #AED9E0 0%, #FDFFFC 75%)",
         boxShadow: "0 3px 5px 2px rgba(100, 100, 100, .1)",
         [theme.breakpoints.up('sm')]:{

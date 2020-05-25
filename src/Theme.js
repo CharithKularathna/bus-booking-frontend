@@ -12,6 +12,13 @@ const theme = createMuiTheme({
       light: "#FDFFFC",
       dark: "#DAA520"
     }
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      '"Open Sans"',
+      'sans-serif'
+    ].join(','),
   }
 });
 

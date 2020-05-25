@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, CardHeader, MenuItem, Grid, Button, Divider } from '@material-ui/core'
+import { Card, CardHeader, MenuItem, Grid, Button, Divider, SvgIcon } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import ReserveSelect from './ReserveSelect/ReserveSelect';
 import DatePicker from './DatePicker/DatePicker'
@@ -154,7 +154,6 @@ class Reserve extends Component {
                         </Grid>
                         
                 </Card>
-                
                     
             </React.Fragment> 
         )

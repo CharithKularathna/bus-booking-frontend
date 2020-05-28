@@ -6,6 +6,7 @@ import * as actions from '../../store/actions/index'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import Alert from '../../components/UI/Alert/Alert';
 import { Redirect } from 'react-router-dom'
+import { stringCapitalize } from '../../store/utility'
 
 class Signup extends Component {
     state={
@@ -22,6 +23,7 @@ class Signup extends Component {
                 },
                 valid: false,
                 touched: false
+
             },
             lastName: {
                 elementType: 'input',
@@ -181,17 +183,20 @@ class Signup extends Component {
                 config: this.state.form[key]
             });
         }
-        let inputs = formElementsArray.map(formElement => (
-            <Input 
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                invalid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-                changed={(event) => this.inputChangeHandler(event, formElement.id)} />
-
+        let inputs = formElementsArray.map(formElement => ( 
+            <React.Fragment>
+                <label for={formElement.id}>{formElement.config.elementConfig.placeholder}</label>
+                <Input 
+                    key={formElement.id}
+                    elementType={formElement.config.elementType}
+                    elementConfig={formElement.config.elementConfig}
+                    value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation}
+                    touched={formElement.config.touched}
+                    changed={(event) => this.inputChangeHandler(event, formElement.id)} />
+                <br />
+            </React.Fragment>
         ));
         let errorMessage = null;
 
@@ -209,7 +214,7 @@ class Signup extends Component {
         }
 
         let form = 
-        (<form className="form-signup" onSubmit={this.submitHandler}>
+        (<form className="form-signup" onSubmit={this.submitHandler} style={{textAlign:'left'}}>
             <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign Up</h1>
             <hr />
             {errorMessage}

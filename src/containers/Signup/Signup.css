@@ -22,7 +22,6 @@
     padding: 15px;
     margin: 0 auto;
     box-shadow: 0 2px 3px #ccc;
-    
   }
   
   .form-signup .form-control {
@@ -61,4 +60,8 @@
     background-color: #ccc;
     cursor: not-allowed;
     margin-top: 5px;
+}
+
+.FormTitle {
+  text-align: center;
 }

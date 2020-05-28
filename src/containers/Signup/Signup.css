@@ -11,9 +11,32 @@
     justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background: linear-gradient(180deg, #AED9E0 0%, #FDFFFC 75%);
     text-align: center;
+    position: relative;
+    background:black;
+    overflow: hidden;
+    color: white;
     
+}
+
+.Signup:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.4;
+  background-image: url('https://cdn.pixabay.com/photo/2017/04/26/10/33/transport-2262256_1280.jpg');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
 
 
@@ -29,23 +52,6 @@
       width: 200px;
   }
 }
-  
-  
-  .form-signup .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-  }
-  .form-signup .form-control:focus {
-    z-index: 2;
-  }
-  .form-signup input{
-    margin-bottom: 2px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
   
 
 .Signup hr{

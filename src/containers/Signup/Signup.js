@@ -218,7 +218,7 @@ class Signup extends Component {
         let form = 
         (<form className="form-signup" onSubmit={this.submitHandler} style={{textAlign:'left'}}>
             <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign Up</h1>
-            <Divider variant='fullWidth' style={{marginBottom:'8px'}} />
+            <Divider variant='fullWidth' style={{marginBottom:'12px'}} />
             {errorMessage}
             {inputs}
             <br />

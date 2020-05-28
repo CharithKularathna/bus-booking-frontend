@@ -3,9 +3,12 @@ import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
-    input: {
+    textField: {
         width: '100%',
-        marginBottom: '8px'
+        marginBottom: '10px',
+    },
+    input: {
+        color: theme.palette.secondary.light
     }
 }))
 
@@ -14,13 +17,18 @@ const input = ( props ) => {
     const isError = props.invalid && props.shouldValidate && props.touched
     return (
        <TextField 
-            className={classes.input}
+            className={classes.textField}
             label={props.label}
             value={props.value}
             onChange={props.changed}
             error={isError}
             helperText={isError ? props.errorMsg : null}
             type={props.elementConfig.type}
+            variant='outlined'
+            size='small'
+            InputLabelProps={{
+                className: classes.input
+            }}
         />
     )
 

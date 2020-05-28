@@ -154,7 +154,10 @@ class Signin extends Component{
         return(
             <div className={classes.Signin}>
                 {authRedirect}
-                {form}
+                <div style={{zIndex:1}}>
+                    {form}
+                </div>
+                
             </div>
         )
     }

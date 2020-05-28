@@ -1,56 +1,27 @@
 import React from 'react';
+import { TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
 
-import classes from './Input.css';
+const useStyles = makeStyles(theme => ({
+    input: {
+        width: '100%',
+        marginBottom: '8px'
+    }
+}))
 
 const input = ( props ) => {
-    let inputElement = null;
-    const inputClasses = [classes.InputElement];
-    inputClasses.push("form-control");
-    if (props.invalid && props.shouldValidate && props.touched) {
-        inputClasses.push(classes.Invalid);
-    }
-
-    switch ( props.elementType ) {
-        case ( 'input' ):
-            inputElement = <input
-                className={inputClasses.join(' ')}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
-            break;
-        case ( 'textarea' ):
-            inputElement = <textarea
-                className={inputClasses.join(' ')}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
-            break;
-        case ( 'select' ):
-            inputElement = (
-                <select
-                    className={inputClasses.join(' ')}
-                    value={props.value}
-                    onChange={props.changed}>
-                    {props.elementConfig.options.map(option => (
-                        <option key={option.value} value={option.value}>
-                            {option.displayValue}
-                        </option>
-                    ))}
-                </select>
-            );
-            break;
-        default:
-            inputElement = <input
-                className={inputClasses.join(' ')}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
-    }
-
+    const classes = useStyles()
+    const isError = props.invalid && props.shouldValidate && props.touched
     return (
-        <div className={classes.Input + " " + ""}>
-            {inputElement}
-        </div>
+       <TextField 
+            className={classes.input}
+            label={props.label}
+            value={props.value}
+            onChange={props.changed}
+            error={isError}
+            helperText={isError ? props.errorMsg : null}
+            type={props.elementConfig.type}
+        />
     )
 
 };

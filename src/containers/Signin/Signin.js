@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classes from './Signin.css'
-import Input from '../../components/UI/Input/Input'
+import SigninInput from '../../components/UI/SigninInput/SigninInput'
 import { Link } from 'react-router-dom';
 import  { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
@@ -119,7 +119,7 @@ class Signin extends Component{
             });
         }
         let inputs = formElementsArray.map(formElement => (
-            <Input 
+            <SigninInput 
                 key={formElement.id}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}

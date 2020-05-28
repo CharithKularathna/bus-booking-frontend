@@ -11,18 +11,25 @@
     justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background: linear-gradient(180deg, #F5EE9E 30%, #FDFFFC 90%);
+    background: linear-gradient(180deg, #AED9E0 0%, #FDFFFC 75%);
     text-align: center;
     
 }
 
+
 .form-signup {
-    width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
     box-shadow: 0 2px 3px #ccc;
+}
+
+@media (max-width: 415px) {
+  .form-signup {
+      width: 200px;
   }
+}
+  
   
   .form-signup .form-control {
     position: relative;

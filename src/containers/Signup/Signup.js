@@ -7,12 +7,12 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import Alert from '../../components/UI/Alert/Alert';
 import { Redirect } from 'react-router-dom'
 import { stringCapitalize } from '../../store/utility'
+import { Divider } from '@material-ui/core'
 
 class Signup extends Component {
     state={
         form:{
             firstName: {
-                elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'First Name'
@@ -22,11 +22,12 @@ class Signup extends Component {
                     required: true,
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: 'Invalid Name'
+
 
             },
             lastName: {
-                elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Last Name'
@@ -36,10 +37,10 @@ class Signup extends Component {
                     required: true,
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: 'Invalid Name'
             },
             email: {
-                elementType: 'input',
                 elementConfig: {
                     type: 'email',
                     placeholder: 'E-Mail'
@@ -50,10 +51,10 @@ class Signup extends Component {
                     isEmail: true
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: 'Invalid Email Address'
             },
             password: {
-                elementType: 'input',
                 elementConfig: {
                     type: 'password',
                     placeholder: 'Password'
@@ -65,10 +66,10 @@ class Signup extends Component {
                     maxLength: 20
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: 'Password should be at least 6 characters long'
             },
             confirmPassword: {
-                elementType: 'input',
                 elementConfig: {
                     type: 'password',
                     placeholder: 'Confirm Password'
@@ -81,10 +82,10 @@ class Signup extends Component {
                     match:true
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: "Doesn't match with the Password"
             },
             phoneNumber: {
-                elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Phone Number'
@@ -97,7 +98,8 @@ class Signup extends Component {
                     isNumeric: true
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: 'Invalid Phone Number'
             }
             
         },
@@ -185,16 +187,16 @@ class Signup extends Component {
         }
         let inputs = formElementsArray.map(formElement => ( 
             <React.Fragment>
-                <label for={formElement.id}>{formElement.config.elementConfig.placeholder}</label>
                 <Input 
                     key={formElement.id}
-                    elementType={formElement.config.elementType}
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
                     invalid={!formElement.config.valid}
                     shouldValidate={formElement.config.validation}
                     touched={formElement.config.touched}
-                    changed={(event) => this.inputChangeHandler(event, formElement.id)} />
+                    changed={(event) => this.inputChangeHandler(event, formElement.id)} 
+                    errorMsg={formElement.config.errorMessage}
+                    label={formElement.config.elementConfig.placeholder} />
                 <br />
             </React.Fragment>
         ));
@@ -216,10 +218,12 @@ class Signup extends Component {
         let form = 
         (<form className="form-signup" onSubmit={this.submitHandler} style={{textAlign:'left'}}>
             <h1 className={"h3 mb-3 font-weight-normal " + classes.FormTitle}>Sign Up</h1>
-            <hr />
+            <Divider variant='fullWidth' style={{marginBottom:'8px'}} />
             {errorMessage}
             {inputs}
+            <br />
             <p><b>By Signing up you agree to the Terms and Conditions of BusBooking</b></p>
+            <br />
             <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
         </form>)
 

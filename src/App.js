@@ -15,6 +15,7 @@ import Success from './components/UI/Success/Success'
 import Activation from './containers/Passenger/Activation/Activation'
 import OwnerRequest from './containers/OwnerRequest/OwnerRequest';
 import Reserve from './containers/Passenger/Reserve/Reserve';
+import RequestPage from './containers/RequestPage/RequestPage';
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +23,14 @@ class App extends Component {
   }
 
   render() {
+    //console.log(this.props.isAuth)
+    let authRoutes = null
+    if (this.props.isAuth){
+      authRoutes = [<Route exact path='/passenger/dashboard' component={Reserve} />,
+      <Route exact path='/admin/dashboard/requests' component={RequestPage} />,
+      <Route exact path='/owner/dashboard' component={Dashboard} />,
+      <Route exact path='/admin/dashboard' component={Dashboard} />]
+    }
     return (
       <div className="App">
         <Layout>
@@ -30,12 +39,10 @@ class App extends Component {
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/logout' component={Logout} />
-            <Route exact path='/passenger/dashboard' component={Reserve} />
-            <Route exact path='/owner/dashboard' component={Dashboard} />
-            <Route exact path='/admin/dashboard' component={Dashboard} />
             <Route exact path='/signupsuccess' render={() => <Success msg={this.props.successMessage}/>} />
             <Route exact path='/auth/activate/:token' component={Activation}/>
             <Route exact path='/owner-signup' component={OwnerRequest} />
+            {authRoutes}
             <Route path='/' component={Home} />
           </Switch>
         </Layout>
@@ -52,7 +59,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    successMessage: state.signup.message
+    successMessage: state.signup.message,
+    isAuth: state.signin.token !== null 
   }
 }
 

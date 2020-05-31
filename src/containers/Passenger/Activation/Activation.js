@@ -30,19 +30,23 @@ class Activation extends Component {
         let content = <Spinner />
         if (!this.state.loading){
             if(this.state.error !== null){
-                content = <Alert type="Danger">{this.state.error}</Alert>
+                content = 
+                (<Alert type="Danger" title="Activation Failed">
+                    User Account activation failed. This can be due to <strong>invalid token</strong> or the <strong>token being expired.</strong> Please, signup again and try to activate.
+                </Alert>)
             }
             else {
                 content = 
-                <div>
-                    <Alert type="Success">{this.state.message}</Alert>
-                </div>
+                    (<Alert type="Success" title="Activation Successful">
+                        You have activated the account successfully. Please, sign in to experience our services. <strong>Thank You</strong>
+                    </Alert>)
+                
                 
             }
         } 
         return (
             <React.Fragment>
-                <div className={classes.Activation}>
+                <div className={classes.Activation} style={{marginTop:'50px'}}>
                     {content}
                 </div>
             </React.Fragment>

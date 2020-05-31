@@ -4,6 +4,8 @@ import MaterialTable from "material-table";
 import Divider from '@material-ui/core/Divider'
 import { withStyles } from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const styles = theme => (
     {
@@ -31,6 +33,24 @@ class RequestPage extends Component {
                             { title: 'Address', field: 'address' },
                             { title: 'Mobile Number', field: 'mobileNumber', type: 'numeric' },
                         ]}
+                        data={[
+                            {name:"Kamal" ,address: "Colombo" ,mobileNumber:'0718989678'},
+                            {name:"Perera" ,address: "Galle",mobileNumber:'0774567894'}
+                        ]}
+                        actions={[
+                            {
+                                icon:()=><VerifiedUserIcon color='primary'/>,
+                                tooltip: 'Accept Request'
+                            },
+                            {
+                                icon:()=><CancelIcon color='error' />,
+                                tooltip: 'Decline Request'
+                            }
+
+                        ]}
+                        options={{
+                            actionsColumnIndex: -1
+                        }}
                     />
                 </Paper>
                 

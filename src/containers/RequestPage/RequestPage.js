@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CancelIcon from '@material-ui/icons/Cancel';
+import  { connect } from 'react-redux'
+import axios from 'axios'
 
 const styles = theme => (
     {
@@ -20,8 +22,37 @@ const styles = theme => (
 )
 
 class RequestPage extends Component {
+    state = {
+        root:{
+            accepting: false,
+            rejecting: false,
+            adminID:this.props.uid,
+            token:this.props.token,
+            requests: null,
+        },
+        user:{
+            id:null,
+            name:null,
+            phoneNumber:null,
+            address:null,
+            date:null,
+        }
+    }
+
+    componentDidMount () {
+        axios.get( 'https://transport-booking-system.herokuapp.com/api/newrequests/:uid' )
+            .then( response => {
+                this.setState( { ingredients: response.data } );
+            } )
+            .catch( error => {
+                this.setState( { error: true } );
+            } );
+    }
+
     render(){
         const {classes} = this.props
+        //console.log(this.props.uid)
+        //console.log(this.props.token)
         return (
             <React.Fragment>
                 <Paper className={classes.table}>
@@ -32,10 +63,11 @@ class RequestPage extends Component {
                             { title: 'Name', field: 'name' },
                             { title: 'Address', field: 'address' },
                             { title: 'Mobile Number', field: 'mobileNumber', type: 'numeric' },
+                            { title: 'Date', field: 'date', type: 'date' }
                         ]}
                         data={[
-                            {name:"Kamal" ,address: "Colombo" ,mobileNumber:'0718989678'},
-                            {name:"Perera" ,address: "Galle",mobileNumber:'0774567894'}
+                            {name:"Kamal" ,address: "Colombo" ,mobileNumber:'0718989678',date:'2020-05-20'},
+                            {name:"Perera" ,address: "Galle",mobileNumber:'0774567894',date:'2020-05-31'}
                         ]}
                         actions={[
                             {
@@ -59,4 +91,11 @@ class RequestPage extends Component {
     }
 }
 
-export default withStyles(styles)(RequestPage);
+const mapStateToProps = (state) => {
+    return{
+        uid: state.signin.userID,
+        token: state.signin.token
+    }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(RequestPage));

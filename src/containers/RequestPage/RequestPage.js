@@ -7,7 +7,7 @@ import { Paper } from '@material-ui/core';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CancelIcon from '@material-ui/icons/Cancel';
 import  { connect } from 'react-redux'
-import axios from 'axios'
+import axiosInstance from '../../axiosAuth'
 
 const styles = theme => (
     {
@@ -40,19 +40,23 @@ class RequestPage extends Component {
     }
 
     componentDidMount () {
-        axios.get( 'https://transport-booking-system.herokuapp.com/api/newrequests/:uid' )
+        axiosInstance.get( 'newrequests/' + this.props.uid, {
+            headers: {
+              'Authorization': `Bearer ${this.props.token}`
+            }})
             .then( response => {
-                this.setState( { ingredients: response.data } );
+                console.log(response)
             } )
             .catch( error => {
-                this.setState( { error: true } );
+                console.log('error')
+                console.log(error)
             } );
     }
 
     render(){
         const {classes} = this.props
-        //console.log(this.props.uid)
-        //console.log(this.props.token)
+        console.log(this.props.uid)
+        console.log(this.props.token)
         return (
             <React.Fragment>
                 <Paper className={classes.table}>

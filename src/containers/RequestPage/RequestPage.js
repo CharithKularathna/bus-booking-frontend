@@ -8,6 +8,8 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CancelIcon from '@material-ui/icons/Cancel';
 import  { connect } from 'react-redux'
 import axiosInstance from '../../axiosAuth'
+import { secondsToDate } from '../../store/utility'
+
 
 const styles = theme => (
     {
@@ -23,13 +25,12 @@ const styles = theme => (
 
 class RequestPage extends Component {
     state = {
-        root:{
-            accepting: false,
-            rejecting: false,
-            adminID:this.props.uid,
-            token:this.props.token,
-            requests: null,
-        },
+        accepting: false,
+        rejecting: false,
+        adminID:this.props.uid,
+        token:this.props.token,
+        error:null,
+        requestArray: null,
         user:{
             id:null,
             name:null,
@@ -45,7 +46,8 @@ class RequestPage extends Component {
               'Authorization': `Bearer ${this.props.token}`
             }})
             .then( response => {
-                console.log(response)
+                //console.log(response)
+                this.setState({requestArray:response.data.newOwners})
             } )
             .catch( error => {
                 console.log('error')
@@ -55,8 +57,22 @@ class RequestPage extends Component {
 
     render(){
         const {classes} = this.props
-        console.log(this.props.uid)
-        console.log(this.props.token)
+        //console.log(this.props.uid)
+        //console.log(this.props.token)
+        console.log(this.state.requestArray)
+        let tabledata = []
+        if (this.state.requestArray !== null){
+            tabledata = this.state.requestArray.map(entry => (
+                {
+                    userID:entry.id,
+                    name:entry.name,
+                    address:entry.address,
+                    mobileNumber:entry.phoneNumber,
+                    date: secondsToDate(entry.date._seconds*1000)
+                }
+            ))
+        }
+        
         return (
             <React.Fragment>
                 <Paper className={classes.table}>
@@ -64,15 +80,13 @@ class RequestPage extends Component {
                         style={{overflowY: 'scroll', maxHeight: '90vh'}}
                         title="Bus Owner Requests"
                         columns={[
+                            { title: 'User ID', field: 'userID' },
                             { title: 'Name', field: 'name' },
                             { title: 'Address', field: 'address' },
                             { title: 'Mobile Number', field: 'mobileNumber', type: 'numeric' },
                             { title: 'Date', field: 'date', type: 'date' }
                         ]}
-                        data={[
-                            {name:"Kamal" ,address: "Colombo" ,mobileNumber:'0718989678',date:'2020-05-20'},
-                            {name:"Perera" ,address: "Galle",mobileNumber:'0774567894',date:'2020-05-31'}
-                        ]}
+                        data={tabledata}
                         actions={[
                             {
                                 icon:()=><VerifiedUserIcon color='primary'/>,

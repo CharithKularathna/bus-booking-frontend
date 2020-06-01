@@ -11,6 +11,7 @@ import axiosInstance from '../../axiosAuth'
 import { secondsToDate, updateObject } from '../../store/utility'
 import ConfirmDialog from '../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
 import FormDialog from '../../components/UI/Dialog/FormDialog/FormDialog'
+import { Redirect } from 'react-router-dom'
 
 const styles = theme => (
     {
@@ -42,6 +43,10 @@ class RequestPage extends Component {
     }
 
     componentDidMount () {
+        this.fetchData()
+    }
+
+    fetchData = () => {
         axiosInstance.get( 'newrequests/' + this.props.uid, {
             headers: {
               'Authorization': `Bearer ${this.props.token}`
@@ -56,7 +61,7 @@ class RequestPage extends Component {
             } );
     }
 
-    rejectNoHandler = () => {
+    resetState = () => {
         const newState = updateObject(this.state.user,{
             id:null,
             name:null,
@@ -66,8 +71,30 @@ class RequestPage extends Component {
         })
         this.setState({rejecting:false,user:newState})
     }
+    rejectNoHandler = () => {
+        this.resetState()
+    }
 
     rejectYesHandler = () => {
+        axiosInstance.post('rejectowner/' + this.props.uid,{
+            uid:this.state.user.id
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        }).then( response => {
+            //console.log(response)
+            this.resetState()
+            //console.log(this.state)
+            //console.log(this.props)
+            //this.props.history.push('/admin/dashboard/requests')
+            this.fetchData()
+            
+        }).catch( error => {
+            console.log(error)
+            this.resetState()
+        })
 
     }
 
@@ -75,7 +102,6 @@ class RequestPage extends Component {
         const {classes} = this.props
         //console.log(this.props.uid)
         //console.log(this.props.token)
-        console.log(this.state)
         let tabledata = []
         if (this.state.requestArray !== null){
             tabledata = this.state.requestArray.map(entry => (
@@ -140,6 +166,7 @@ class RequestPage extends Component {
                     description={"Note that this will permanenlty remove the Owner Request from the System."}
                     clicked={this.state.rejecting}
                     handleClose={this.rejectNoHandler}
+                    handleConfirm={this.rejectYesHandler}
                 />
                 {/*<FormDialog />*/}
             </React.Fragment>

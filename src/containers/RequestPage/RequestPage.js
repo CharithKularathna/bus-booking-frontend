@@ -69,8 +69,9 @@ class RequestPage extends Component {
             phoneNumber:null,
             date:null
         })
-        this.setState({rejecting:false,user:newState})
+        this.setState({rejecting:false,accepting:false,user:newState})
     }
+
     rejectNoHandler = () => {
         this.resetState()
     }
@@ -95,6 +96,18 @@ class RequestPage extends Component {
             console.log(error)
             this.resetState()
         })
+    
+        
+    }
+    acceptHandler = () => {
+            
+    }
+
+    acceptCloseHandler = () => {
+        this.resetState()
+    }
+
+    formDataHandler = () => {
 
     }
 
@@ -168,7 +181,14 @@ class RequestPage extends Component {
                     handleClose={this.rejectNoHandler}
                     handleConfirm={this.rejectYesHandler}
                 />
-                {/*<FormDialog />*/}
+                <FormDialog 
+                    title={"Please Confirm and Fill the Data to Proceed"}
+                    clicked={this.state.accepting}
+                    handleClose={this.acceptCloseHandler}
+                    handleSubmit={this.acceptHandler}
+                    data={this.state.user}
+                    formChanged={this.formDataHandler}
+                />
             </React.Fragment>
         )
     }

@@ -35,10 +35,13 @@ class RequestPage extends Component {
         requestArray: null,
         user:{
             id:"",
-            name:"",
+            firstName:"",
+            secondName:"",
+            email:"",
             phoneNumber:"",
             address:"",
             date:"",
+            nic:""
         }
     }
 
@@ -64,10 +67,13 @@ class RequestPage extends Component {
     resetState = () => {
         const newState = updateObject(this.state.user,{
             id:"",
-            name:"",
-            address: "",
+            firstName:"",
+            secondName:"",
+            email:"",
             phoneNumber:"",
-            date:""
+            address:"",
+            date:"",
+            nic:""
         })
         this.setState({rejecting:false,accepting:false,user:newState})
     }
@@ -149,7 +155,6 @@ class RequestPage extends Component {
                                 onClick: (event, rowData) => {
                                     const newState = updateObject(this.state.user,{
                                         id:rowData.userID,
-                                        name:rowData.name,
                                         address: rowData.address,
                                         phoneNumber:rowData.mobileNumber,
                                         date:rowData.date

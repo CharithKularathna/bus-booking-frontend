@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import { TextField } from '@material-ui/core';
+import { TextField, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     dialog:{
@@ -14,6 +14,17 @@ const useStyles = makeStyles(theme => ({
     },
     noButton:{
         color: 'red'
+    },
+    leftInputs:{
+        marginLeft: '7%',
+        marginTop: '10px'
+    },
+    rightInputs:{
+        marginTop: '10px',
+        marginLeft: '15%',
+    },
+    title:{
+        textAlign:'center'
     }
 }))
 
@@ -21,41 +32,56 @@ const formDialog = props => {
     const classes = useStyles()
     return(
         <Dialog
+                
                 open={props.clicked}
                 onClose={props.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
         >
-                <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
+                <DialogTitle id="alert-dialog-title" className={classes.title}>{props.title}</DialogTitle>
+                <Divider />
                 <DialogContent>
                     <TextField 
+                        className={classes.leftInputs}
                         label="User ID"
                         type="text"
                         value= {props.data.id}
                     />
                     <TextField 
-                        label="Name"
+                        className={classes.rightInputs}
+                        label="First Name"
                         type="text"
-                        value= {props.data.name}
+                        value= {props.data.firstName}
                     />
-                    
                     <TextField 
+                        className={classes.leftInputs}
+                        label="Second Name"
+                        type="text"
+                        value= {props.data.secondName}
+                    />
+                    <TextField 
+                        className={classes.rightInputs}
                         label="E-mail Address"
                         type="email"
+                        value= {props.data.email}
                     />
                     <TextField 
+                        className={classes.leftInputs}
                         label="Phone Number"
                         type="text"
                         value= {props.data.phoneNumber}
                     />
                     <TextField 
+                        className={classes.rightInputs}
                         label="Address"
                         type="text"
                         value= {props.data.address}
                     />
                     <TextField 
+                        className={classes.leftInputs}
                         label="NIC Number"
                         type="text"
+                        value= {props.data.nic}
                     />
                 </DialogContent>
                 <DialogActions>

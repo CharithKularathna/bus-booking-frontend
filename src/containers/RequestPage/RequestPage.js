@@ -34,11 +34,11 @@ class RequestPage extends Component {
         error:null,
         requestArray: null,
         user:{
-            id:null,
-            name:null,
-            phoneNumber:null,
-            address:null,
-            date:null,
+            id:"",
+            name:"",
+            phoneNumber:"",
+            address:"",
+            date:"",
         }
     }
 
@@ -63,11 +63,11 @@ class RequestPage extends Component {
 
     resetState = () => {
         const newState = updateObject(this.state.user,{
-            id:null,
-            name:null,
-            address: null,
-            phoneNumber:null,
-            date:null
+            id:"",
+            name:"",
+            address: "",
+            phoneNumber:"",
+            date:""
         })
         this.setState({rejecting:false,accepting:false,user:newState})
     }

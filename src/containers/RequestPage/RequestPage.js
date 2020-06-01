@@ -8,8 +8,9 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CancelIcon from '@material-ui/icons/Cancel';
 import  { connect } from 'react-redux'
 import axiosInstance from '../../axiosAuth'
-import { secondsToDate } from '../../store/utility'
-
+import { secondsToDate, updateObject } from '../../store/utility'
+import ConfirmDialog from '../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
+import FormDialog from '../../components/UI/Dialog/FormDialog/FormDialog'
 
 const styles = theme => (
     {
@@ -50,16 +51,31 @@ class RequestPage extends Component {
                 this.setState({requestArray:response.data.newOwners})
             } )
             .catch( error => {
-                console.log('error')
-                console.log(error)
+                //console.log('error')
+                //console.log(error)
             } );
+    }
+
+    rejectNoHandler = () => {
+        const newState = updateObject(this.state.user,{
+            id:null,
+            name:null,
+            address: null,
+            phoneNumber:null,
+            date:null
+        })
+        this.setState({rejecting:false,user:newState})
+    }
+
+    rejectYesHandler = () => {
+
     }
 
     render(){
         const {classes} = this.props
         //console.log(this.props.uid)
         //console.log(this.props.token)
-        console.log(this.state.requestArray)
+        console.log(this.state)
         let tabledata = []
         if (this.state.requestArray !== null){
             tabledata = this.state.requestArray.map(entry => (
@@ -72,7 +88,7 @@ class RequestPage extends Component {
                 }
             ))
         }
-        
+
         return (
             <React.Fragment>
                 <Paper className={classes.table}>
@@ -90,11 +106,27 @@ class RequestPage extends Component {
                         actions={[
                             {
                                 icon:()=><VerifiedUserIcon color='primary'/>,
-                                tooltip: 'Accept Request'
+                                tooltip: 'Accept Request',
+                                onClick: (event, rowData) => {
+                                    const newState = updateObject(this.state.user,{
+                                        id:rowData.userID,
+                                        name:rowData.name,
+                                        address: rowData.address,
+                                        phoneNumber:rowData.mobileNumber,
+                                        date:rowData.date
+                                    })
+                                    this.setState({user:newState, accepting:true})
+                                }
                             },
                             {
                                 icon:()=><CancelIcon color='error' />,
-                                tooltip: 'Decline Request'
+                                tooltip: 'Decline Request',
+                                onClick: (event, rowData) => {
+                                    const newState = updateObject(this.state.user,{
+                                        id:rowData.userID
+                                    })
+                                    this.setState({user:newState, rejecting:true})
+                                }
                             }
 
                         ]}
@@ -103,7 +135,13 @@ class RequestPage extends Component {
                         }}
                     />
                 </Paper>
-                
+                <ConfirmDialog 
+                    title={"Are you sure that you want to reject the request?"}
+                    description={"Note that this will permanenlty remove the Owner Request from the System."}
+                    clicked={this.state.rejecting}
+                    handleClose={this.rejectNoHandler}
+                />
+                {/*<FormDialog />*/}
             </React.Fragment>
         )
     }

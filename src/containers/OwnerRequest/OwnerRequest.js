@@ -22,7 +22,8 @@ class OwnerRequest extends Component{
                     required: true,
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: "Please enter a name"
             },
             phoneNumber: {
                 elementType: 'input',
@@ -38,7 +39,8 @@ class OwnerRequest extends Component{
                     isNumeric: true
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: "Invalid Phone Number. Use a number with 10 digits of length"
             },
             address: {
                 elementType: 'input',
@@ -51,7 +53,8 @@ class OwnerRequest extends Component{
                     required: true,
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: "Invalid Address"
             }
             
         },
@@ -144,14 +147,15 @@ class OwnerRequest extends Component{
         let inputs = formElementsArray.map(formElement => (
             <Input 
                 key={formElement.id}
-                elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
                 value={formElement.config.value}
                 invalid={!formElement.config.valid}
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
-                changed={(event) => this.inputChangeHandler(event, formElement.id)} />
-
+                changed={(event) => this.inputChangeHandler(event, formElement.id)}
+                errorMsg={formElement.config.errorMessage}
+                label={formElement.config.elementConfig.placeholder}
+             />
         ));
         
         return(

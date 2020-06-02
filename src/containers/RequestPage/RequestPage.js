@@ -99,6 +99,7 @@ class RequestPage extends Component {
         }).catch( error => {
             console.log(error)
             this.resetState()
+            this.fetchData()
         })
     
         

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles(theme => ({
     textField: {
         width: '100%',
-        marginBottom: '10px',
+        marginBottom: '10px'
     },
     input: {
         color: theme.palette.secondary.light
@@ -29,6 +29,10 @@ const input = ( props ) => {
             InputLabelProps={{
                 className: classes.input
             }}
+            InputProps={{
+                className: classes.input
+            }}
+
         />
     )
 

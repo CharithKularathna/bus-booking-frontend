@@ -16,6 +16,7 @@ import Activation from './containers/Passenger/Activation/Activation'
 import OwnerRequest from './containers/OwnerRequest/OwnerRequest';
 import Reserve from './containers/Passenger/Reserve/Reserve';
 import RequestPage from './containers/RequestPage/RequestPage';
+import AddConductor from './containers/Owner/AddConductor/AddConductor'
 
 class App extends Component {
   componentDidMount() {
@@ -25,17 +26,18 @@ class App extends Component {
   render() {
     //console.log(this.props.isAuth)
     let authRoutes = null
-    if (this.props.isAuth && this.props.role == 'passenger'){
+    if (this.props.isAuth && this.props.role == 'PASSENGER'){
       authRoutes = [
         <Route exact path='/passenger/dashboard' component={Reserve} />
       ]
     }
-    if (this.props.isAuth && this.props.role == 'owner'){
+    if (this.props.isAuth && this.props.role == 'OWNER'){
       authRoutes = [
-        <Route exact path='/owner/dashboard' component={Dashboard} />
+        <Route exact path='/owner/dashboard' component={Dashboard} />,
+        <Route exact path='/owner/dashboard/addconductor' component={AddConductor} />
       ]
     }
-    if (this.props.isAuth && this.props.role == 'admin'){
+    if (this.props.isAuth && this.props.role == 'ADMIN'){
       authRoutes = [
       <Route exact path='/admin/dashboard/requests' component={RequestPage} />,
       <Route exact path='/admin/dashboard' component={Dashboard} />]

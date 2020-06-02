@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classes from './Signup.css'
 import Input from '../../components/UI/Input/Input'
-import  { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import Alert from '../../components/UI/Alert/Alert';

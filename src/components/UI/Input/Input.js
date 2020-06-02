@@ -9,7 +9,11 @@ const useStyles = makeStyles(theme => ({
     },
     input: {
         color: theme.palette.secondary.light
+    },
+    inputGreyText: {
+        color: 'grey'
     }
+
 }))
 
 const input = ( props ) => {
@@ -27,10 +31,10 @@ const input = ( props ) => {
             variant='outlined'
             size='small'
             InputLabelProps={{
-                className: classes.input
+                className: props.greyInput ? classes.inputGreyText : classes.input
             }}
             InputProps={{
-                className: classes.input
+                className: props.greyInput ? classes.inputGreyText : classes.input
             }}
 
         />

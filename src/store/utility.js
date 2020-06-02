@@ -15,3 +15,17 @@ export const secondsToDate = (miliseconds) => {
     return `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`;
 }
 
+export const phoneNumberFormatter = (number) => {
+    let newNumber = null
+    if(number.length === 10){
+        newNumber = '+94' + number.slice(1)
+    }
+    else if(number.length === 9){
+        newNumber = '+94' + number
+    }
+    else if(number.length === 12){
+        newNumber = number
+    }
+    return newNumber
+}
+

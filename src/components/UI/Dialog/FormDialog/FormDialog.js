@@ -46,42 +46,49 @@ const formDialog = props => {
                         label="User ID"
                         type="text"
                         value= {props.data.id}
+                        onChange={(event)=>props.formChanged(event,'id')}
                     />
                     <TextField 
                         className={classes.rightInputs}
                         label="First Name"
                         type="text"
                         value= {props.data.firstName}
+                        onChange={(event)=>props.formChanged(event,'firstName')}
                     />
                     <TextField 
                         className={classes.leftInputs}
                         label="Second Name"
                         type="text"
                         value= {props.data.secondName}
+                        onChange={(event)=>props.formChanged(event,'secondName')}
                     />
                     <TextField 
                         className={classes.rightInputs}
                         label="E-mail Address"
                         type="email"
                         value= {props.data.email}
+                        onChange={(event)=>props.formChanged(event,'email')}
                     />
                     <TextField 
                         className={classes.leftInputs}
                         label="Phone Number"
                         type="text"
                         value= {props.data.phoneNumber}
+                        onChange={(event)=>props.formChanged(event,'phoneNumber')}
                     />
                     <TextField 
                         className={classes.rightInputs}
                         label="Address"
                         type="text"
                         value= {props.data.address}
+                        onChange={(event)=>props.formChanged(event,'address')}
                     />
                     <TextField 
                         className={classes.leftInputs}
                         label="NIC Number"
                         type="text"
                         value= {props.data.nic}
+                        onChange={(event)=>props.formChanged(event,'nic')}
                     />
                 </DialogContent>
                 <DialogActions>

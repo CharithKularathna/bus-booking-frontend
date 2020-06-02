@@ -8,7 +8,7 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CancelIcon from '@material-ui/icons/Cancel';
 import  { connect } from 'react-redux'
 import axiosInstance from '../../axiosAuth'
-import { secondsToDate, updateObject } from '../../store/utility'
+import { secondsToDate, updateObject, phoneNumberFormatter } from '../../store/utility'
 import ConfirmDialog from '../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
 import FormDialog from '../../components/UI/Dialog/FormDialog/FormDialog'
 import { Redirect } from 'react-router-dom'
@@ -40,7 +40,6 @@ class RequestPage extends Component {
             email:"",
             phoneNumber:"",
             address:"",
-            date:"",
             nic:""
         }
     }
@@ -72,7 +71,6 @@ class RequestPage extends Component {
             email:"",
             phoneNumber:"",
             address:"",
-            date:"",
             nic:""
         })
         this.setState({rejecting:false,accepting:false,user:newState})
@@ -106,6 +104,33 @@ class RequestPage extends Component {
         
     }
     acceptHandler = () => {
+        console.log(this.state.user)
+        axiosInstance.post('acceptowner/' + this.props.uid,{
+            uid:this.state.user.id,
+            firstName:this.state.user.firstName,
+            secondName:this.state.user.secondName,
+            email:this.state.user.email,
+            phoneNumber:phoneNumberFormatter(this.state.user.phoneNumber),
+            phone_verified:true,
+            address:this.state.user.address,
+            nic:this.state.user.nic
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        }).then( response => {
+            //console.log(response)
+            this.resetState()
+            //console.log(this.state)
+            //console.log(this.props)
+            //this.props.history.push('/admin/dashboard/requests')
+            this.fetchData()
+            
+        }).catch( error => {
+            console.log(error)
+            this.resetState()
+        })
             
     }
 
@@ -113,8 +138,12 @@ class RequestPage extends Component {
         this.resetState()
     }
 
-    formDataHandler = () => {
-
+    formDataHandler = (event,field) => {
+        const updatedForm = {
+            ...this.state.user
+        };
+        updatedForm[field] = event.target.value
+        this.setState({user:updatedForm})
     }
 
     render(){
@@ -157,7 +186,6 @@ class RequestPage extends Component {
                                         id:rowData.userID,
                                         address: rowData.address,
                                         phoneNumber:rowData.mobileNumber,
-                                        date:rowData.date
                                     })
                                     this.setState({user:newState, accepting:true})
                                 }

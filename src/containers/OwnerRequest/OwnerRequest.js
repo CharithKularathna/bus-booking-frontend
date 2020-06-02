@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import Alert from '../../components/UI/Alert/Alert'
 import axios from '../../axiosAuth'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import { phoneNumberFormatter } from '../../store/utility'
 
 class OwnerRequest extends Component{
     state = {
@@ -118,7 +119,7 @@ class OwnerRequest extends Component{
         this.setState({loading:true})
         const formData = {
             name: this.state.form.name.value,
-            phoneNumber: this.state.form.phoneNumber.value,
+            phoneNumber: phoneNumberFormatter(this.state.form.phoneNumber.value),
             address:this.state.form.address.value
         }
         axios.post('/sendrequest',formData)

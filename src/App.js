@@ -25,10 +25,19 @@ class App extends Component {
   render() {
     //console.log(this.props.isAuth)
     let authRoutes = null
-    if (this.props.isAuth){
-      authRoutes = [<Route exact path='/passenger/dashboard' component={Reserve} />,
+    if (this.props.isAuth && this.props.role == 'passenger'){
+      authRoutes = [
+        <Route exact path='/passenger/dashboard' component={Reserve} />
+      ]
+    }
+    if (this.props.isAuth && this.props.role == 'owner'){
+      authRoutes = [
+        <Route exact path='/owner/dashboard' component={Dashboard} />
+      ]
+    }
+    if (this.props.isAuth && this.props.role == 'admin'){
+      authRoutes = [
       <Route exact path='/admin/dashboard/requests' component={RequestPage} />,
-      <Route exact path='/owner/dashboard' component={Dashboard} />,
       <Route exact path='/admin/dashboard' component={Dashboard} />]
     }
     return (
@@ -60,7 +69,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     successMessage: state.signup.message,
-    isAuth: state.signin.token !== null 
+    isAuth: state.signin.token !== null,
+    role: state.signin.role
   }
 }
 

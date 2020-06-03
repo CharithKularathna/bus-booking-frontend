@@ -1,5 +1,6 @@
 import React from 'react'
 import NavItem from '../NavItem/NavItem'
+
 import AirlineSeatReclineNormalIcon from '@material-ui/icons/AirlineSeatReclineNormal';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
@@ -7,6 +8,9 @@ import InputIcon from '@material-ui/icons/Input';
 import PollIcon from '@material-ui/icons/Poll';
 import HistoryIcon from '@material-ui/icons/History';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import DirectionsBusIcon from '@material-ui/icons/DirectionsBus'
+import LoopIcon from '@material-ui/icons/Loop'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -83,9 +87,14 @@ const sidebar = (props) => {
                     icon: <PersonAddIcon fontSize='large' />
                 },
                 {
-                    link:'/owner/dashboard/bookings',
-                    name:'Booking History',
-                    icon: <HistoryIcon fontSize='large' />
+                    link:'/owner/dashboard/addbus',
+                    name:'Add a Bus',
+                    icon: <DirectionsBusIcon fontSize='large' />
+                },
+                {
+                    link:'/owner/dashboard/addturns',
+                    name:'Add Turns',
+                    icon: <LoopIcon fontSize='large' />
                 }
             ]
             break;

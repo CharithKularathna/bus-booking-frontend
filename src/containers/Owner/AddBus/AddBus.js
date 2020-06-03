@@ -20,7 +20,9 @@ class AddBus extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    isNumeric: true
+                    isNumeric: true,
+                    minLength: 1,
+                    maxLength: 3
                 },
                 valid: false,
                 touched: false,
@@ -35,7 +37,9 @@ class AddBus extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    minLength: 7,
+                    maxLength: 8
                 },
                 valid: false,
                 touched: false,

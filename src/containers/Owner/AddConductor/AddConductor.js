@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import Alert from '../../../components/UI/Alert/Alert';
 import Divider from '@material-ui/core/Divider'
 import axiosInstance from '../../../axiosAuth'
-
+import classes from './AddConductor.css'
+import Typography  from '@material-ui/core/Typography';
+import Spinner from '../../../components/UI/Spinner/Spinner'
 
 class AddConductor extends Component {
     state={
@@ -80,7 +82,7 @@ class AddConductor extends Component {
                 touched: false,
                 errorMessage: 'Invalid Phone Number'
             },
-            address: {
+            nic: {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'NIC Number'
@@ -95,7 +97,10 @@ class AddConductor extends Component {
                 errorMessage: 'Invalid NIC Number'
             } 
         },
-        validForm: false
+        validForm: false,
+        error: false,
+        loading: false,
+        success: false
     }
 
     checkValidity(value, rules) {
@@ -158,13 +163,33 @@ class AddConductor extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
+        this.setState({loading:true})
         const formData = {
             firstName:this.state.form.firstName.value,
-            secondName: this.state.form.lastName.value,
+            secondName: this.state.form.secondName.value,
             email: this.state.form.email.value,
             phoneNumber: '+94' +this.state.form.phoneNumber.value.substring(1),
-            address: this.state.form.address.value
+            address: this.state.form.address.value,
+            nic: this.state.form.nic.value
         }
+        axiosInstance.post('addconductor/' + this.props.uid,formData,
+        {
+            headers: {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        }).then( response => {
+            console.log(response)
+            this.setState({loading:false, success:true})
+            
+        }).catch( error => {
+            console.log("Error")
+            if (error.response.status == 500 ||error.response.status == '500')
+                this.setState({loading:false, success:true})
+            else {
+                this.setState({loading:false, error:true})
+            }
+            
+        })
         /*axios Here*/
     }
 
@@ -192,29 +217,38 @@ class AddConductor extends Component {
                 <br />
             </React.Fragment>
         ));
-        /*
+
         let errorMessage = null;
 
-        if (this.props.error !== null){
+        if (this.state.error){
             errorMessage = <Alert type="Danger">An account for the Email/Mobile Number already exists</Alert>
         }
 
-        if (this.props.error === "Request failed with status code 422"){
-            errorMessage = <Alert type="Danger">An account for the Email/Mobile Number already exists</Alert>
+        let successMessage = null;
+
+        if (this.state.success){
+            successMessage = <Alert type="Success">Conductor created Successfully. Login Details are sent to the conductor Mobile Number</Alert>
         }
-        */
 
         let form = 
-        (<form className="form-signup" onSubmit={this.submitHandler} style={{textAlign:'left'}}>
+        (<form className={"form-signup "+ classes.form} onSubmit={this.submitHandler} style={{textAlign:'center'}}>
             <h1 className={"h3 mb-3 font-weight-normal"} style={{textAlign: 'center'}} >Add a Conductor</h1>
+            <Typography variant='subtitle1' style={{paddingLeft:'10px', paddingRight:'10px'}}>Add the given details of the Conductor and Submit</Typography>
+            <br />
             <Divider variant='fullWidth' style={{marginBottom:'12px'}} />
+            {errorMessage}
+            {successMessage}
             {inputs}
+            <Typography variant='caption' style={{color:'grey', marginBottom:'1px'}}>Note that the User added will be given the right to access Details and Seat Reservations of the Buses that are currently registered under you.</Typography>
             <br />
             <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
         </form>)
 
+        if (this.state.loading){
+            form = <Spinner />
+        }
         return(
-            <div>
+            <div className={classes.root}>
                 {form}
             </div>
         )

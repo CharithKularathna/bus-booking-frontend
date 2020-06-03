@@ -1,0 +1,39 @@
+.root {
+    height: 100vh;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.form {
+    max-width: 450px;
+    padding: 15px;
+    margin: 0 auto;
+    box-shadow: 0 2px 3px #ccc;
+}
+
+@media (max-width: 215px) {
+    .form {
+        width: 200px;
+    }
+  }
+
+.root button{
+    margin-top: 40px;
+}
+
+.root button:disabled {
+    color: #555;
+    background-color: #ccc;
+    cursor: not-allowed;
+    margin-top: 5px;
+}

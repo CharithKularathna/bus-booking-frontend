@@ -20,6 +20,7 @@ import AddConductor from './containers/Owner/AddConductor/AddConductor'
 import AddBus from './containers/Owner/AddBus/AddBus';
 import AddTurn from './containers/Owner/AddTurn/AddTurn';
 import RequestBus from './containers/Admin/RequestBus/RequestBus'
+import OwnerDetails from './containers/Admin/OwnerDetails/OwnerDetails'
 
 class App extends Component {
   componentDidMount() {
@@ -46,6 +47,7 @@ class App extends Component {
       authRoutes = [
         <Route exact path='/admin/dashboard/requests' component={RequestPage} />,
         <Route exact path='/admin/dashboard/registerbus' component={RequestBus} />,
+        <Route exact path='/admin/dashboard/ownerdetails' component={OwnerDetails} />,
         <Route exact path='/admin/dashboard' component={Dashboard} />
       ]
     }

@@ -10,6 +10,7 @@ import HistoryIcon from '@material-ui/icons/History';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import DirectionsBusIcon from '@material-ui/icons/DirectionsBus'
 import LoopIcon from '@material-ui/icons/Loop'
+import InfoIcon from '@material-ui/icons/Info';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -78,9 +79,9 @@ const sidebar = (props) => {
                     icon: <PollIcon fontSize='large' />
                 },
                 {
-                    link:'/admin/dashboard/bookings',
-                    name:'Approval History',
-                    icon: <HistoryIcon fontSize='large' />
+                    link:'/admin/dashboard/ownerdetails',
+                    name:'Owner Details',
+                    icon: <InfoIcon fontSize='large' />
                 }
             ]
             break;

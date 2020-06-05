@@ -68,6 +68,11 @@ const sidebar = (props) => {
                     icon: <InputIcon fontSize='large' />
                 },
                 {
+                    link:'/admin/dashboard/registerbus',
+                    name:'Bus Registration',
+                    icon: <DirectionsBusIcon fontSize='large' />
+                },
+                {
                     link:'/admin/dashboard/analytics',
                     name:'Booking Analytics',
                     icon: <PollIcon fontSize='large' />

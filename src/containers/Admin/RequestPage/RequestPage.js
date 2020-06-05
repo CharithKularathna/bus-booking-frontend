@@ -7,10 +7,10 @@ import { Paper } from '@material-ui/core';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CancelIcon from '@material-ui/icons/Cancel';
 import  { connect } from 'react-redux'
-import axiosInstance from '../../axiosAuth'
-import { secondsToDate, updateObject, phoneNumberFormatter } from '../../store/utility'
-import ConfirmDialog from '../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
-import FormDialog from '../../components/UI/Dialog/FormDialog/FormDialog'
+import axiosInstance from '../../../axiosAuth'
+import { secondsToDate, updateObject, phoneNumberFormatter } from '../../../store/utility'
+import ConfirmDialog from '../../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
+import FormDialog from '../../../components/UI/Dialog/FormDialog/FormDialog'
 import { Redirect } from 'react-router-dom'
 
 const styles = theme => (

@@ -8,6 +8,7 @@ import classes from './AddBus.css'
 import Typography  from '@material-ui/core/Typography';
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import { validateForm } from '../../../store/validate'
+import CustomSelect from '../../../containers/Passenger/Reserve/ReserveSelect/ReserveSelect'
 
 class AddBus extends Component {
     state={
@@ -45,11 +46,59 @@ class AddBus extends Component {
                 touched: false,
                 errorMessage: 'Invalid Bus Number'
             },
+            duration: {
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Duration of the Journey (in Minutes)'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true
+                },
+                valid: false,
+                touched: false,
+                errorMessage: 'Invalid Time'
+            }
         },
         validForm: false,
         error: false,
         loading: false,
-        success: false
+        success: false,
+        options:{
+            origin:
+                [
+                    'Ambalangoda','Ampara','Anuradhapura','Badulla','Bandarawela','Colombo','Embilipitiya',
+                    'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura'
+                ],
+            destination:
+                [
+                    'Ambalangoda','Ampara','Anuradhapura','Badulla','Bandarawela','Colombo','Embilipitiya',
+                    'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura'
+                ],
+            bustype:
+                [
+                    'Seat 49','Seat 30','Seat 54','Seat 44'
+                ]
+        },
+        selects:{
+            origin:{
+                label:"Origin (Starting City of the Journey)",
+                value: '',
+                error: true
+            },
+            destination:{
+                label:"Destination (Ending City of the Journey)",
+                value: '',
+                error: true
+            },
+            bustype:{
+                label:"Bus Type",
+                value:'',
+                error: true
+            }
+
+        }
     }
 
     checkValidity(value, rules) {
@@ -81,7 +130,20 @@ class AddBus extends Component {
     }
 
     selectInputChangeHandler = (event, id) => {
-
+        const updatedSelects = {
+            ...this.state.selects
+        };
+        const updatedSelectsElement = { 
+            ...updatedSelects[id]
+        };
+        updatedSelectsElement.value = event.target.value;
+        let newError = true
+        if (updatedSelectsElement.value !== "" && updatedSelectsElement.value !== "None"){
+            newError = false 
+        }
+        updatedSelectsElement.error = newError
+        updatedSelects[id] = updatedSelectsElement;
+        this.setState({selects: updatedSelects});
     }
 
     submitHandler = (event) => {
@@ -124,6 +186,15 @@ class AddBus extends Component {
                 config: this.state.form[key]
             });
         }
+
+        const selectElementsArray = [];
+        for (let key in this.state.selects) {
+            selectElementsArray.push({
+                id: key,
+                config: this.state.selects[key]
+            });
+        }
+
         let inputs = formElementsArray.map(formElement => ( 
             <React.Fragment>
                 <Input 
@@ -140,6 +211,17 @@ class AddBus extends Component {
                 <br />
             </React.Fragment>
         ));
+
+        let selects = selectElementsArray.map(selectElement => (
+            <CustomSelect 
+                key={selectElement.id}
+                label={selectElement.config.label}
+                value={selectElement.config.value}
+                changeHandler={(event)=> this.selectInputChangeHandler(event,selectElement.id)}
+                options={this.state.options[selectElement.id]}
+                isError={selectElement.config.error}
+            />
+        ))
 
         let errorMessage = null;
 
@@ -162,6 +244,7 @@ class AddBus extends Component {
             {errorMessage}
             {successMessage}
             {inputs}
+            {selects}
             {/*Select Inputs Here*/}
             <Typography variant='caption' style={{color:'grey', marginBottom:'1px'}}>A request to add the bus will be sent. You will be contacted in order to confirm the Bus Registration</Typography>
             <br />

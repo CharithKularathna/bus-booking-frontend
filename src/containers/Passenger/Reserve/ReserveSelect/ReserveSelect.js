@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme)=>({
     selectEmpty: {
         marginTop: theme.spacing(2),
     }
+
+
 }))
 
 let reserveSelect;
@@ -23,7 +25,7 @@ export default reserveSelect = (props) => {
     ))
 
     return (
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} error={props.isError}>
             <InputLabel shrink id="inputSelect">
                 {props.label}
             </InputLabel>

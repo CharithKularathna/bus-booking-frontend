@@ -78,7 +78,7 @@ class AddBus extends Component {
                 ],
             bustype:
                 [
-                    'Seat 49','Seat 30','Seat 54','Seat 44'
+                    '49 Seat','30 Seat','54 Seat','44 Seat'
                 ]
         },
         selects:{
@@ -146,28 +146,43 @@ class AddBus extends Component {
         this.setState({selects: updatedSelects});
     }
 
+    busTypeSelector = (string) => {
+        let busType = "1"
+        if (string == "30 Seat"){
+            busType = '2'
+        }
+        else if (string == "54 Seat"){
+            busType = '3'
+        }
+        else if (string == "44 Seat"){
+            busType = '4'
+        }
+        return busType
+    }
+
     submitHandler = (event) => {
         event.preventDefault();
         this.setState({loading:true})
+        const duration = parseInt(this.state.form.duration.value) * 60 * 1000
+        const typeStr = this.state.selects.bustype.value
+        const busType = this.busTypeSelector(typeStr)
         const formData = {
-            /*firstName:this.state.form.firstName.value,
-            secondName: this.state.form.secondName.value,
-            email: this.state.form.email.value,
-            phoneNumber: '+94' +this.state.form.phoneNumber.value.substring(1),
-            address: this.state.form.address.value,
-            nic: this.state.form.nic.value */
+            routeNo: this.state.form.route.value,
+            busNo: this.state.form.busNo.value,
+            duration: duration,
+            origin: this.state.selects.origin.value,
+            destination: this.state.selects.destination.value,
+            type: busType
         }
-        axiosInstance.post('addconductor/' + this.props.uid,formData,
+        axiosInstance.post('busrequest/' + this.props.uid,formData,
         {
             headers: {
                 'Authorization': `Bearer ${this.props.token}`
             }
         }).then( response => {
-            console.log(response)
             this.setState({loading:false, success:true})
             
         }).catch( error => {
-            console.log("Error")
             if (error.response.status == 500 ||error.response.status == '500')
                 this.setState({loading:false, success:true})
             else {
@@ -226,17 +241,17 @@ class AddBus extends Component {
         let errorMessage = null;
 
         if (this.state.error){
-            errorMessage = <Alert type="Danger">An account for the Email/Mobile Number already exists</Alert>
+            errorMessage = <Alert type="Danger">A Bus is registered under the given Plate Number</Alert>
         }
 
         let successMessage = null;
 
         if (this.state.success){
-            successMessage = <Alert type="Success">Conductor created Successfully. Login Details are sent to the conductor Mobile Number</Alert>
+            successMessage = <Alert type="Success">Bus Registration Request was sent successfully. An admin will contact you for further info.</Alert>
         }
 
         let form = 
-        (<div className={"form-signup "+ classes.form} style={{textAlign:'center'}}>
+        (<form className={"form-signup "+ classes.form} style={{textAlign:'center'}} onSubmit={this.submitHandler}>
             <h1 className={"h3 mb-3 font-weight-normal"} style={{textAlign: 'center'}} >Add a Bus</h1>
             <Typography variant='subtitle1' style={{paddingLeft:'10px', paddingRight:'10px'}}>Add the given details of the Bus and Send the Request</Typography>
             <br />
@@ -249,7 +264,7 @@ class AddBus extends Component {
             <Typography variant='caption' style={{color:'grey', marginBottom:'1px'}}>A request to add the bus will be sent. You will be contacted in order to confirm the Bus Registration</Typography>
             <br />
             <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block">Send Request</button>
-        </div>)
+        </form>)
 
         if (this.state.loading){
             form = <Spinner />

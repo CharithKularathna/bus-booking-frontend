@@ -7,8 +7,10 @@ import axiosInstance from '../../../axiosAuth'
 import classes from './AddBus.css'
 import Typography  from '@material-ui/core/Typography';
 import Spinner from '../../../components/UI/Spinner/Spinner'
-import { validateForm } from '../../../store/validate'
 import CustomSelect from '../../../containers/Passenger/Reserve/ReserveSelect/ReserveSelect'
+
+import { validateForm } from '../../../store/validate'
+import { stringCapitalize } from '../../../store/utility'
 
 class AddBus extends Component {
     state={
@@ -148,13 +150,13 @@ class AddBus extends Component {
 
     busTypeSelector = (string) => {
         let busType = "1"
-        if (string == "30 Seat"){
+        if (string == "30 seat"){
             busType = '2'
         }
-        else if (string == "54 Seat"){
+        else if (string == "54 seat"){
             busType = '3'
         }
-        else if (string == "44 Seat"){
+        else if (string == "44 seat"){
             busType = '4'
         }
         return busType
@@ -170,8 +172,8 @@ class AddBus extends Component {
             routeNo: this.state.form.route.value,
             busNo: this.state.form.busNo.value,
             duration: duration,
-            origin: this.state.selects.origin.value,
-            destination: this.state.selects.destination.value,
+            origin: stringCapitalize(this.state.selects.origin.value),
+            destination: stringCapitalize(this.state.selects.destination.value),
             type: busType
         }
         axiosInstance.post('busrequest/' + this.props.uid,formData,

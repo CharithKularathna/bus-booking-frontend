@@ -21,6 +21,7 @@ import AddBus from './containers/Owner/AddBus/AddBus';
 import AddTurn from './containers/Owner/AddTurn/AddTurn';
 import RequestBus from './containers/Admin/RequestBus/RequestBus'
 import OwnerDetails from './containers/Admin/OwnerDetails/OwnerDetails'
+import Checkout from './containers/Passenger/Checkout/Checkout'
 
 class App extends Component {
   componentDidMount() {
@@ -63,6 +64,8 @@ class App extends Component {
             <Route exact path='/auth/activate/:token' component={Activation}/>
             <Route exact path='/owner-signup' component={OwnerRequest} />
             {authRoutes}
+            {/*Paypal Check*/}
+            <Route exact path='/checkout' component={Checkout} />
             <Route path='/' component={Home} />
           </Switch>
         </Layout>

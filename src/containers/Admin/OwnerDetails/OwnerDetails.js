@@ -12,6 +12,8 @@ import { secondsToDate, updateObject, phoneNumberFormatter } from '../../../stor
 import ConfirmDialog from '../../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
 import { Redirect } from 'react-router-dom'
 
+
+
 const styles = theme => (
     {
     
@@ -34,9 +36,7 @@ class OwnerDetails extends Component {
         owners: null,
         pastTurns: null,
         activeTurns: null,
-        selectedOwner: {
-            id:''
-        }
+        selectedOwnerID: ''
     }
 
     componentDidMount () {
@@ -73,48 +73,11 @@ class OwnerDetails extends Component {
         this.resetTurnState()
     }
 
-    activeTurnsHandler = () => {
-        axiosInstance.get('getactiveturnsofownerbyadmin/' + this.props.uid,{
-            ownerUid:this.state.selectedOwner.id
-        },
-        {
-            headers: {
-                'Authorization': `Bearer ${this.props.token}`
-            }
-        }).then( response => {
-            console.log(response)
-            this.setState({activeTurns:response.data.turnsJson})
-            
-        }).catch( error => {
-            console.log(error.response)
-        })
-    
-        
-    }
-
-    pastTurnsHandler = () => {
-        axiosInstance.get('getpastturnsofownerbyadmin/' + this.props.uid,{
-            ownerUid:this.state.selectedOwner.id
-        },
-        {
-            headers: {
-                'Authorization': `Bearer ${this.props.token}`
-            }
-        }).then( response => {
-            console.log(response)
-            this.setState({pastTurns:response.data.turnsJson})
-            
-        }).catch( error => {
-            console.log(error.response)
-        })
-    
-        
-    }
 
     closeHandler = () => {
-        this.resetState()
+        this.resetTurnState()
     }
-
+    /*
     formDataHandler = (event,field) => {
         const updatedForm = {
             ...this.state.selectedOwner
@@ -122,8 +85,63 @@ class OwnerDetails extends Component {
         updatedForm[field] = event.target.value
         this.setState({selectedOwner:updatedForm})
     }
+    */
+   activeTurnsHandler = (id) => {
+        axiosInstance.get('getactiveturnsofownerbyadmin/' + this.props.uid,{
+            ownerUid:id
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        }).then( response => {
+            console.log("res")
+            console.log(response.data)
+            const newState = {
+                activeTurns: response.data.requestTime,
+                pastTurns: null,
+                activeLoading: true,
+                pastLoading: false,
+                selectedOwnerID: id
+            }
+            this.setState(newState)
 
+        }).catch( error => {
+            console.log('err')
+            console.log(error.response)
+        })
+
+        
+    }
+
+    pastTurnsHandler = (id) => {
+        axiosInstance.get('getpastturnsofownerbyadmin/' + this.props.uid,{
+            ownerUid:id
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        }).then( response => {
+            console.log("res")
+            console.log(response.data)
+            const newState = {
+                pastTurns: response.data.requestTime,
+                activeTurns: null,
+                pastLoading: true,
+                activeLoading: false,
+                selectedOwnerID: id
+            }
+            this.setState(newState)
+            
+        }).catch( error => {
+            console.log("err")
+            console.log(error.response)
+        })
+
+    }
     render(){
+        console.log(this.state)
         const {classes} = this.props
         //console.log(this.props.uid)
         //console.log(this.props.token)
@@ -146,7 +164,7 @@ class OwnerDetails extends Component {
                 <Paper className={classes.table}>
                     <MaterialTable
                         style={{overflowY: 'scroll', maxHeight: '90vh'}}
-                        title="Bus Registration Requests"
+                        title="Owner Details and Turns"
                         columns={[
                             { title: 'Owner ID', field: 'ownerID' },
                             { title: 'Name', field:'name'},
@@ -161,6 +179,7 @@ class OwnerDetails extends Component {
                                 icon:()=><TodayIcon color='primary'/>,
                                 tooltip: 'View Active Turns',
                                 onClick: (event, rowData) => {
+                                    this.activeTurnsHandler(rowData.ownerID)
                                     /*const newState = updateObject(this.state.user,{
                                         id:rowData.userID,
                                         address: rowData.address,
@@ -173,6 +192,8 @@ class OwnerDetails extends Component {
                                 icon:()=><HistoryIcon color='error' />,
                                 tooltip: 'View Past Turns',
                                 onClick: (event, rowData) => {
+                                    this.pastTurnsHandler(rowData.ownerID)
+                                    
                                     /*console.log(rowData.busID)
                                     const newState = updateObject(this.state.user,{
                                         busID:rowData.busID

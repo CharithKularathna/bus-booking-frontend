@@ -10,14 +10,17 @@ import './index.css';
 import App from './App';
 import theme from './Theme'
 import registerServiceWorker from './registerServiceWorker';
+
 import signinReducer from './store/reducers/signin'
 import signupReducer from './store/reducers/signup'
+import bookingReducer from './store/reducers/booking'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     signin: signinReducer,
-    signup: signupReducer
+    signup: signupReducer,
+    booking: bookingReducer
 })
 
 

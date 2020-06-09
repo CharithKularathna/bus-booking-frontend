@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
-import MenuItem from '@material-ui/core/MenuItem'
+import { withStyles } from '@material-ui/core/styles'
+import ReserveSelect from '../GetRoutes/ReserveSelect/ReserveSelect'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
-import { withStyles } from '@material-ui/core/styles'
-import ReserveSelect from './ReserveSelect/ReserveSelect';
-import DatePicker from './DatePicker/DatePicker'
-import { updateObject, stringCapitalize } from '../../../store/utility'
-
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import MenuItem from '@material-ui/core/MenuItem'
+import axiosInstance from '../../../axiosAuth'
+import Spinner from '../../../components/UI/Spinner/Spinner'
+import Alert from '../../../components/UI/Alert/Alert'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
     heading:{
@@ -44,108 +46,89 @@ const styles = theme => ({
     
 })
 
-class Reserve extends Component {
+class Reserve extends Component{
     state = {
-        options:[
-            'Ambalangoda','Ampara','Anuradhapura','Badulla','Bandarawela','Colombo','Embilipitiya',
-            'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura',
+        loading:true,
+        options: null,
+        route:'',
+        turns:null,
+        message:null
+    }
 
-        ],
-        searched:false,
-        turn: {
-            start: "",
-            destination: "",
-            date: ""
-        }
-    }
-    /*
-    submitHandler = (event) => {
-        event.preventDefault();
-        setTimeout(()=>{
-            this.setState({searched:true})
-        },2000)
-    }
-    */
     componentDidMount() {
-        const today = new Date();
-        const currentDate = today.getFullYear()+'-'+String((today.getMonth()+1)).padStart(2, '0')+'-'+String(today.getDate()).padStart(2, '0');
-        let oldTurn = this.state.turn
-        let newTurn = updateObject(oldTurn,{date:currentDate})
-        this.setState({turn: newTurn})
-        console.log(newTurn)
+        axiosInstance.get('getallroutes')
+        .then(response => {
+            console.log("res")
+            console.log(response.data.routes)
+            this.setState({loading:false, options:response.data.routes})
+            console.log("res")
+            
+        })
+        .catch(error => {
+            console.log(error.response)
+            console.log("error")
+        })
     }
 
-    onChangeHandler = (event, field) => {
-        switch (field){
-            case 1:
-                let oldTurn1 = this.state.turn
-                let newTurn1 = updateObject(oldTurn1,{start:event.target.value})
-                this.setState({turn: newTurn1})
-                break;
-            case 2:
-                let oldTurn2 = this.state.turn
-                let newTurn2 = updateObject(oldTurn2,{destination:event.target.value})
-                this.setState({turn: newTurn2})
-                break;
-            case 3:
-                let oldTurn3 = this.state.turn
-                let newTurn3 = updateObject(oldTurn3,{date:event.target.value})
-                this.setState({turn: newTurn3})
-                console.log(newTurn3)
-                break;
-            default:
-                break;
-
-        }
+    onChangeHandler = (event) => {
+        this.setState({route: event.target.value})
     }
 
     searchBuses = () => {
-        return
+        axiosInstance.post('getturnbyroute',{
+            routeId:this.state.route
+        })
+        .then(response=>{
+            console.log(response.data)
+            if (response.data.hasOwnProperty('message')) {
+                this.setState({message:response.data.message})
+            }
+            if (response.data.hasOwnProperty('turns')) {
+                this.setState({turns:response.data.turns})
+            }
+        })
+        .catch(error => {
+            console.log('err')
+            console.log(error)
+        })
     }
 
     render(){
-        const menuItems= this.state.options.map(city => (
-            <MenuItem key={city} value={city.toLowerCase()}>{city}</MenuItem>
-        ))
-
-
-        
+        console.log(this.state)
         const {classes} = this.props;
-
-        return(
-            <React.Fragment>
+        let optionsArray = [];
+        if (this.state.options != null){
+            optionsArray = this.state.options.map(option=>(
+                `${option.id}`
+            ))
+        }
+        console.log(optionsArray)
+        let message = null;
+        if (this.state.message != null){
+            message = <Alert type="Error" style={{marginTop:'-50px'}}>No Turns Found</Alert>
+        }
+        let mainCard = <div><Spinner /></div>
+        if (this.state.loading == false){
+            mainCard = (
                 <Card className={classes.mainCard} >
-                    <CardHeader className={classes.heading} title="Reserve a Bus Seat" subheader="Search a Bus by start, destination and date of your travel"/>
+                    <CardHeader className={classes.heading} title="Reserve a Bus Seat" subheader="Search a Bus using the Route"/>
                     <Divider className={classes.divider} />    
                         <Grid container spacing={3}>
                             <Grid item xs={10} sm={3} className = {classes.select}>
                                 <ReserveSelect 
-                                    label="Start"
-                                    options={this.state.options}
-                                    turn={this.state.turn}
-                                    changeHandler={(event)=>this.onChangeHandler(event,1)}
-                                    value={this.state.turn.start}
-                                    helperText={"From " + stringCapitalize(this.state.turn.start)}
-                                    
+                                    label="Bus Route"
+                                    options={optionsArray}
+                                    turn={this.state.route}
+                                    changeHandler={this.onChangeHandler}
+                                    value={this.state.route}
+                                    helperText=""
                                 />
                             </Grid>
                             <Grid item xs={10} sm={3} className = {classes.select}>
-                                <ReserveSelect 
-                                    label="Destination"
-                                    options={this.state.options}
-                                    turn={this.state.turn}
-                                    changeHandler={(event)=>{this.onChangeHandler(event,2)}}
-                                    value={this.state.turn.destination}
-                                    helperText={"To " + stringCapitalize(this.state.turn.destination)}
-                                    
-                                />
+                                
                             </Grid>
                             <Grid item xs={10} sm={3} className = {classes.select}>
-                                <DatePicker 
-                                    value = {this.state.turn.date}
-                                    changed = {(event) => {this.onChangeHandler(event,3)}}
-                                    
-                                />
+                                
                             </Grid>
                                 
                             <Grid item xs={10} sm={2} >
@@ -161,10 +144,23 @@ class Reserve extends Component {
                         </Grid>
                         
                 </Card>
-                    
-            </React.Fragment> 
+            )
+        }
+        return(
+            <React.Fragment>
+                {mainCard}
+                {message}
+            </React.Fragment>
         )
     }
 }
 
-export default withStyles(styles)(Reserve);
+const mapDispatchToProps = (dispatch) => {
+    /*
+    return{
+        onSubmit: (formData) => dispatch(actions.booking())
+    }
+    */
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Reserve));

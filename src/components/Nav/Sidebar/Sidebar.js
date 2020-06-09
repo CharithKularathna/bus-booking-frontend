@@ -11,6 +11,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import DirectionsBusIcon from '@material-ui/icons/DirectionsBus'
 import LoopIcon from '@material-ui/icons/Loop'
 import InfoIcon from '@material-ui/icons/Info';
+import FormatListNumberedRtlIcon from '@material-ui/icons/FormatListNumberedRtl';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -49,9 +50,9 @@ const sidebar = (props) => {
                     icon: <AirlineSeatReclineNormalIcon fontSize='large' />
                 },
                 {
-                    link:'/passenger/dashboard/schedule',
-                    name:'Bus Schedule',
-                    icon: <DateRangeIcon fontSize='large' />
+                    link:'/passenger/dashboard/getroutes',
+                    name:'Find Routes',
+                    icon: <FormatListNumberedRtlIcon fontSize='large' />
                 },
                 {
                     link:'/passenger/dashboard/bookings',

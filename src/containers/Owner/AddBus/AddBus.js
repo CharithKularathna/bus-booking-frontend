@@ -7,7 +7,7 @@ import axiosInstance from '../../../axiosAuth'
 import classes from './AddBus.css'
 import Typography  from '@material-ui/core/Typography';
 import Spinner from '../../../components/UI/Spinner/Spinner'
-import CustomSelect from '../../../containers/Passenger/Reserve/ReserveSelect/ReserveSelect'
+import CustomSelect from '../../../containers/Passenger/GetRoutes/ReserveSelect/ReserveSelect'
 
 import { validateForm } from '../../../store/validate'
 import { stringCapitalize } from '../../../store/utility'

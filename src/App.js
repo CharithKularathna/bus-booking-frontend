@@ -14,7 +14,7 @@ import * as actions from './store/actions/index'
 import Success from './components/UI/Success/Success'
 import Activation from './containers/Passenger/Activation/Activation'
 import OwnerRequest from './containers/OwnerRequest/OwnerRequest';
-import Reserve from './containers/Passenger/Reserve/Reserve';
+import GetRoutes from './containers/Passenger/GetRoutes/GetRoutes';
 import RequestPage from './containers/Admin/RequestPage/RequestPage';
 import AddConductor from './containers/Owner/AddConductor/AddConductor'
 import AddBus from './containers/Owner/AddBus/AddBus';
@@ -22,6 +22,7 @@ import AddTurn from './containers/Owner/AddTurn/AddTurn';
 import RequestBus from './containers/Admin/RequestBus/RequestBus'
 import OwnerDetails from './containers/Admin/OwnerDetails/OwnerDetails'
 import Checkout from './containers/Passenger/Checkout/Checkout'
+import Reserve from './containers/Passenger/Reserve/Reserve'
 
 class App extends Component {
   componentDidMount() {
@@ -33,7 +34,9 @@ class App extends Component {
     let authRoutes = null
     if (this.props.isAuth && this.props.role == 'PASSENGER'){
       authRoutes = [
-        <Route exact path='/passenger/dashboard' component={Reserve} />
+        <Route exact path='/passenger/dashboard' component={GetRoutes} />,
+        <Route exact path='/passenger/dashboard/getroutes' component={GetRoutes} />,
+        <Route exact path='/passenger/dashboard/reserve' component={Reserve} />
       ]
     }
     if (this.props.isAuth && this.props.role == 'OWNER'){

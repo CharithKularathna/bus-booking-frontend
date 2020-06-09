@@ -15,6 +15,11 @@ export const secondsToDate = (miliseconds) => {
     return `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`;
 }
 
+export const secondsToDateTime = (seconds) => {
+    const data = new Date(seconds * 1000);
+    return (data.toDateString() + ' ' + data.toLocaleTimeString())
+}
+
 export const phoneNumberFormatter = (number) => {
     let newNumber = null
     if(number.length === 10){

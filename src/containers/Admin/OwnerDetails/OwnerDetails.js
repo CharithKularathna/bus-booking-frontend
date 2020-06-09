@@ -8,10 +8,12 @@ import TodayIcon from '@material-ui/icons/Today';
 import HistoryIcon from '@material-ui/icons/History';
 import  { connect } from 'react-redux'
 import axiosInstance from '../../../axiosAuth'
-import { secondsToDate, updateObject, phoneNumberFormatter } from '../../../store/utility'
+import axios from 'axios'
+import { secondsToDate, updateObject, phoneNumberFormatter, secondsToDateTime } from '../../../store/utility'
 import ConfirmDialog from '../../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
-import { Redirect } from 'react-router-dom'
-
+import Spinner from '../../../components/UI/Spinner/Spinner'
+import Alert from '../../../components/UI/Alert/Alert';
+import TableDialog from '../../../components/UI/Dialog/TableDialog/TableDialog'
 
 
 const styles = theme => (
@@ -28,6 +30,7 @@ const styles = theme => (
 
 class OwnerDetails extends Component {
     state = {
+        loading: true,
         activeLoading:false,
         pastLoading:false,
         adminID:this.props.uid,
@@ -50,16 +53,17 @@ class OwnerDetails extends Component {
             }})
             .then( response => {
                 console.log(response.data.ownersJson)
-                this.setState({owners:response.data.ownersJson.owners})
+                this.setState({owners:response.data.ownersJson.owners, loading:false})
             } )
             .catch( error => {
                 //console.log('error')
-                console.log(error.response)
+                //console.log(error.response)
             } );
     }
 
     resetTurnState = () => {
         const newState = updateObject(this.state,{
+            loading:false,
             activeLoading:false,
             pastLoading:false,
             error:null,
@@ -87,7 +91,8 @@ class OwnerDetails extends Component {
     }
     */
    activeTurnsHandler = (id) => {
-        axiosInstance.get('getactiveturnsofownerbyadmin/' + this.props.uid,{
+        this.setState({loading:true, error:null})
+        axiosInstance.post('getactiveturnsofownerbyadmin/' + this.props.uid,{
             ownerUid:id
         },
         {
@@ -98,7 +103,8 @@ class OwnerDetails extends Component {
             console.log("res")
             console.log(response.data)
             const newState = {
-                activeTurns: response.data.requestTime,
+                loading:false,
+                activeTurns: response.data.turnsJson.turns,
                 pastTurns: null,
                 activeLoading: true,
                 pastLoading: false,
@@ -108,14 +114,24 @@ class OwnerDetails extends Component {
 
         }).catch( error => {
             console.log('err')
-            console.log(error.response)
+            const newState = {
+                error: error.message,
+                loading: false,
+                pastTurns: null,
+                activeTurns: null,
+                pastLoading: false,
+                activeLoading: false,
+                selectedOwnerID: ''
+            }
+            this.setState(newState)
         })
 
         
     }
 
     pastTurnsHandler = (id) => {
-        axiosInstance.get('getpastturnsofownerbyadmin/' + this.props.uid,{
+        this.setState({loading:true, error:null})
+        axiosInstance.post('getpastturnsofownerbyadmin/' + this.props.uid,{
             ownerUid:id
         },
         {
@@ -126,7 +142,8 @@ class OwnerDetails extends Component {
             console.log("res")
             console.log(response.data)
             const newState = {
-                pastTurns: response.data.requestTime,
+                loading: false,
+                pastTurns: response.data.turnsJson.turns,
                 activeTurns: null,
                 pastLoading: true,
                 activeLoading: false,
@@ -136,7 +153,16 @@ class OwnerDetails extends Component {
             
         }).catch( error => {
             console.log("err")
-            console.log(error.response)
+            const newState = {
+                error: error.message,
+                loading: false,
+                pastTurns: null,
+                activeTurns: null,
+                pastLoading: false,
+                activeLoading: false,
+                selectedOwnerID: ''
+            }
+            this.setState(newState)
         })
 
     }
@@ -159,9 +185,61 @@ class OwnerDetails extends Component {
             ))
         }
 
-        return (
-            <React.Fragment>
+        let errorMessage = null
+        if (this.state.error != null){
+            errorMessage = <Alert type="Error">No Past Turns were Found for the Bus Owner</Alert>
+        }
+        
+        let activeTurnsData = null;
+        let pastTurnsData = null;
+        const turnColumns = [
+            { title: 'Turn ID', field: 'turnID' },
+            { title: 'Route', field:'routeID'},
+            { title: 'Bus Number', field: 'busNo' },
+            { title: 'Origin', field: 'origin' },
+            { title: 'Departure', field: 'departure'},
+            { title: 'Duration', field: 'duration'},
+            { title: 'Normal Seat Price', field: 'normalSeatPrice'},
+            { title: 'Window Seat Price', field: 'windowSeatPrice'}
+        ]
+        if (this.state.activeTurns != null){
+            activeTurnsData = this.state.activeTurns.map(turn => (
+                {
+                    turnID: turn.turnId,
+                    routeID: turn.routeId,
+                    busNo: turn.busNo,
+                    origin: turn.startStation,
+                    departure: secondsToDateTime(parseInt(turn.departureTime._seconds)),
+                    duration: (parseInt(turn.duration) / 60).toString() + ' min',
+                    normalSeatPrice: turn.NormalSeatPrice,
+                    windowSeatPrice: turn.windowSeatPrice
+                }
+            ))
+
+        }
+
+        if (this.state.pastTurns != null){
+            pastTurnsData = this.state.pastTurns.map(turn => (
+                {
+                    turnID: turn.turnId,
+                    routeID: turn.routeId,
+                    busNo: turn.busNo,
+                    origin: turn.startStation,
+                    departure: secondsToDateTime(parseInt(turn.departureTime._seconds)),
+                    duration: (parseInt(turn.duration) / 60000).toString() + ' min',
+                    normalSeatPrice: turn.NormalSeatPrice,
+                    windowSeatPrice: turn.windowSeatPrice
+                }
+            ))
+
+        }
+
+
+        let mainTable = <div style={{marginTop:'150px'}} ><Spinner /></div>
+        if (this.state.loading == false){
+            mainTable = (
                 <Paper className={classes.table}>
+                    {errorMessage}
                     <MaterialTable
                         style={{overflowY: 'scroll', maxHeight: '90vh'}}
                         title="Owner Details and Turns"
@@ -208,8 +286,29 @@ class OwnerDetails extends Component {
                             actionsColumnIndex: -1
                         }}
                     />
-                </Paper>
+                </Paper>)
+        }
+
+        return (
+            <React.Fragment>
+                {mainTable}
                 {/* RegisterDialog Comes Here */}
+                <TableDialog 
+                    clicked={this.state.activeLoading}
+                    handleClose={this.closeHandler}
+                    columns={turnColumns}
+                    tabledata={activeTurnsData}
+                    title="Active Turns"
+                    fullWidth={true}
+                />
+                <TableDialog 
+                    clicked={this.state.pastLoading}
+                    handleClose={this.closeHandler}
+                    columns={turnColumns}
+                    tabledata={pastTurnsData}
+                    title="Past Turns"
+                    fullWidth={true}
+                />
             </React.Fragment>
         )
     }

@@ -10,7 +10,9 @@ import  { connect } from 'react-redux'
 import axiosInstance from '../../../axiosAuth'
 import { secondsToDate, updateObject, phoneNumberFormatter } from '../../../store/utility'
 import ConfirmDialog from '../../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
+import RegisterDialog from '../../../components/UI/Dialog/RegisterDialog/RegisterDialog'
 import { Redirect } from 'react-router-dom'
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 const styles = theme => (
     {
@@ -26,6 +28,7 @@ const styles = theme => (
 
 class RequestBus extends Component {
     state = {
+        loading: true,
         accepting: false,
         rejecting: false,
         adminID:this.props.uid,
@@ -35,7 +38,6 @@ class RequestBus extends Component {
         user:{
             busID:"",
             ownerID:"",
-            reqid:"",
             windowSeatPrice:'',
             JumpingSeatPrice:'',
             NormalSeatPrice:'',
@@ -53,7 +55,7 @@ class RequestBus extends Component {
             }})
             .then( response => {
                 //console.log(response)
-                this.setState({requestArray:response.data.newBusRequests})
+                this.setState({requestArray:response.data.newBusRequests, loading: false})
             } )
             .catch( error => {
                 //console.log('error')
@@ -63,13 +65,11 @@ class RequestBus extends Component {
 
     resetState = () => {
         const newState = updateObject(this.state.user,{
-            id:"",
-            firstName:"",
-            secondName:"",
-            email:"",
-            phoneNumber:"",
-            address:"",
-            nic:""
+            busID:"",
+            ownerID:"",
+            windowSeatPrice:'',
+            JumpingSeatPrice:'',
+            NormalSeatPrice:'',
         })
         this.setState({rejecting:false,accepting:false,user:newState})
     }
@@ -166,8 +166,18 @@ class RequestBus extends Component {
             ))
         }
 
-        return (
-            <React.Fragment>
+        const formElementsArray = [];
+        for (let key in this.state.user) {
+            formElementsArray.push({
+                id: key,
+                value: this.state.user[key]
+            });
+        }
+
+    console.log(formElementsArray)
+        let table = <div style={{marginTop:'150px'}}><Spinner /></div>
+        if (this.state.loading == false){
+            table = (
                 <Paper className={classes.table}>
                     <MaterialTable
                         style={{overflowY: 'scroll', maxHeight: '90vh'}}
@@ -187,12 +197,11 @@ class RequestBus extends Component {
                                 icon:()=><VerifiedUserIcon color='primary'/>,
                                 tooltip: 'Accept Request',
                                 onClick: (event, rowData) => {
-                                    /*const newState = updateObject(this.state.user,{
-                                        id:rowData.userID,
-                                        address: rowData.address,
-                                        phoneNumber:rowData.busNumber,
+                                    const newState = updateObject(this.state.user,{
+                                        busID:rowData.busID,
+                                        ownerID: rowData.ownerID
                                     })
-                                    this.setState({user:newState, accepting:true})*/
+                                    this.setState({user:newState, accepting:true})
                                 }
                             },
                             {
@@ -213,6 +222,11 @@ class RequestBus extends Component {
                         }}
                     />
                 </Paper>
+            )
+        }
+        return (
+            <React.Fragment>
+                {table}
                 <ConfirmDialog 
                     title={"Are you sure that you want to reject the request?"}
                     description={"Note that this will permanenlty remove the Bus Registration Request from the System."}
@@ -221,6 +235,13 @@ class RequestBus extends Component {
                     handleConfirm={this.rejectYesHandler}
                 />
                 {/* RegisterDialog Comes Here */}
+                <RegisterDialog
+                    title={"Approve the Bus Registration Request"}
+                    clicked={this.state.accepting}
+                    handleClose={this.acceptCloseHandler}
+                    inputChangeHandler={this.formDataHandler}
+                    formElementsArray={formElementsArray}
+                />
             </React.Fragment>
         )
     }

@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
+import Divider from '@material-ui/core/Divider'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import Input from '../../Input/Input'
+import { stringCapitalize } from '../../../../store/utility';
+import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,6 +20,16 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const registerDialog = (props) => {
+    console.log(props.formElementsArray)
+    const inputs = props.formElementsArray.map(element => (
+        <TextField
+            key={element.id}
+            value={element.value}
+            onChange={(event) => props.inputChangeHandler(event, element.id)} 
+            label={stringCapitalize(element.id)}
+            type="text"
+            style={{marginRight:'80px'}} />
+    ))
     const classes = useStyles()
     return(
         <Dialog
@@ -29,55 +41,7 @@ const registerDialog = (props) => {
                 <DialogTitle id="alert-dialog-title" className={classes.title}>{props.title}</DialogTitle>
                 <Divider />
                 <DialogContent>
-                    {/*<TextField 
-                        className={classes.leftInputs}
-                        label="User ID"
-                        type="text"
-                        value= {props.data.id}
-                        onChange={(event)=>props.formChanged(event,'id')}
-                    />
-                    <TextField 
-                        className={classes.rightInputs}
-                        label="First Name"
-                        type="text"
-                        value= {props.data.firstName}
-                        onChange={(event)=>props.formChanged(event,'firstName')}
-                    />
-                    <TextField 
-                        className={classes.leftInputs}
-                        label="Second Name"
-                        type="text"
-                        value= {props.data.secondName}
-                        onChange={(event)=>props.formChanged(event,'secondName')}
-                    />
-                    <TextField 
-                        className={classes.rightInputs}
-                        label="E-mail Address"
-                        type="email"
-                        value= {props.data.email}
-                        onChange={(event)=>props.formChanged(event,'email')}
-                    />
-                    <TextField 
-                        className={classes.leftInputs}
-                        label="Phone Number"
-                        type="text"
-                        value= {props.data.phoneNumber}
-                        onChange={(event)=>props.formChanged(event,'phoneNumber')}
-                    />
-                    <TextField 
-                        className={classes.rightInputs}
-                        label="Address"
-                        type="text"
-                        value= {props.data.address}
-                        onChange={(event)=>props.formChanged(event,'address')}
-                    />
-                    <TextField 
-                        className={classes.leftInputs}
-                        label="NIC Number"
-                        type="text"
-                        value= {props.data.nic}
-                        onChange={(event)=>props.formChanged(event,'nic')}
-                    /> */}
+                    {inputs}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={props.handleClose} color='default' className={classes.noButton} >
@@ -91,3 +55,4 @@ const registerDialog = (props) => {
 
     )
 }
+export default registerDialog;

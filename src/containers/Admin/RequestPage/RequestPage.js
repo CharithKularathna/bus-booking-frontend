@@ -11,7 +11,7 @@ import axiosInstance from '../../../axiosAuth'
 import { secondsToDate, updateObject, phoneNumberFormatter } from '../../../store/utility'
 import ConfirmDialog from '../../../components/UI/Dialog/ConfirmDialog/ConfirmDialog'
 import FormDialog from '../../../components/UI/Dialog/FormDialog/FormDialog'
-import { Redirect } from 'react-router-dom'
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 const styles = theme => (
     {
@@ -27,6 +27,7 @@ const styles = theme => (
 
 class RequestPage extends Component {
     state = {
+        loading: true,
         accepting: false,
         rejecting: false,
         adminID:this.props.uid,
@@ -55,7 +56,7 @@ class RequestPage extends Component {
             }})
             .then( response => {
                 //console.log(response)
-                this.setState({requestArray:response.data.newOwners})
+                this.setState({requestArray:response.data.newOwners, loading:false})
             } )
             .catch( error => {
                 //console.log('error')
@@ -163,9 +164,9 @@ class RequestPage extends Component {
                 }
             ))
         }
-
-        return (
-            <React.Fragment>
+        let table = <div style={{marginTop:'150px'}}><Spinner /></div>
+        if (this.state.loading == false){
+            table = (
                 <Paper className={classes.table}>
                     <MaterialTable
                         style={{overflowY: 'scroll', maxHeight: '90vh'}}
@@ -208,6 +209,11 @@ class RequestPage extends Component {
                         }}
                     />
                 </Paper>
+            )
+        }
+        return (
+            <React.Fragment>
+                {table}
                 <ConfirmDialog 
                     title={"Are you sure that you want to reject the request?"}
                     description={"Note that this will permanenlty remove the Owner Request from the System."}

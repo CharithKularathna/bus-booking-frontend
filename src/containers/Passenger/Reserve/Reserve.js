@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { stringCapitalize, multiWordCapitalize, getDateFromJson, getTimeFromJson } from '../../../store/utility'
 import SearchCard from '../../../components/UI/SearchCard/SearchCard'
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
     heading:{
@@ -154,6 +155,7 @@ class Reserve extends Component{
             )
         }
         let results = null;
+        let resultsTitle = null;
         if (this.state.turns != null){
             results = this.state.turns.map(turn => (
                 <SearchCard
@@ -168,11 +170,19 @@ class Reserve extends Component{
                     clicked={(event)=>this.goToSeatMap(event,turn.turnId)}
                 />
             ))
+            resultsTitle = (
+                <div style={{textAlign: 'left', marginBottom:'10px'}} >
+                    <Typography variant='h5'>Search Results</Typography>
+                    <Divider variant='fullWidth' style={{width:'100%'}}/>
+                </div>
+                
+            )
         }
         return(
             <React.Fragment>
                 {mainCard}
                 {message}
+                {resultsTitle}
                 {results}
             </React.Fragment>
         )

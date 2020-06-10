@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     pos: {
       marginBottom: 12,
     },
+    button: {
+        marginLeft:'90%'
+    }
   })
 
 const searchCard = (props) => {
@@ -37,12 +40,12 @@ const searchCard = (props) => {
                     <Grid container spacing={3}>
                         <Grid item sm={6} >
                             <Typography variant="h5" component="h2" className={classes.fromTitle}>
-                                {bull}FROM - {props.from} 
+                                <strong>From</strong> - {props.from} 
                             </Typography>
                         </Grid>
                         <Grid item sm={6} >
                             <Typography variant="h5" component="h2" className={classes.toTitle}>
-                                {bull}TO - {props.to}
+                                <strong>To</strong> - {props.to}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -69,7 +72,7 @@ const searchCard = (props) => {
                     </Grid>
                 </CardContent>
                 <CardActions>
-                    <Button color='primary' onClick={props.clicked}>Reserve Seats</Button>
+                    <Button className={classes.button} color='primary' onClick={props.clicked}>Reserve Seats</Button>
                 </CardActions>
             </Card>
         </React.Fragment>

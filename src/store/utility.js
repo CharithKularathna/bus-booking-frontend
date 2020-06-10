@@ -34,3 +34,18 @@ export const phoneNumberFormatter = (number) => {
     return newNumber
 }
 
+export const multiWordCapitalize = (string) => {
+    const strArray = string.split(" ")
+    const newArray = strArray.map(str => (
+        stringCapitalize(str)
+    ))
+    return newArray.join(" ")
+}
+
+export const getDateFromJson = (string) => {
+    return string.slice(0,10)
+}
+
+export const getTimeFromJson = (string) => {
+    return string.slice(11,19)
+}

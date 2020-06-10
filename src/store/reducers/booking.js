@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-
+import { updateObject } from '../utility'
 
 const initialState = {
     turnID: null,
@@ -8,8 +8,9 @@ const initialState = {
     price: null
 };
 
+
 const reducer = ( state = initialState, action ) => {
     
 };
 
-export default reducer;
+export default null;

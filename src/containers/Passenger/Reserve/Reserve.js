@@ -12,6 +12,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner'
 import Alert from '../../../components/UI/Alert/Alert'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { stringCapitalize, multiWordCapitalize, getDateFromJson, getTimeFromJson } from '../../../store/utility'
+import SearchCard from '../../../components/UI/SearchCard/SearchCard'
 
 const styles = theme => ({
     heading:{
@@ -22,6 +24,7 @@ const styles = theme => ({
     mainCard: {
         width: '100%',
         height: '75vh',
+        marginBottom: '10px',
         background: "linear-gradient(180deg, #AED9E0 0%, #F5F5DC 75%)",
         boxShadow: "0 3px 5px 2px rgba(100, 100, 100, .1)",
         [theme.breakpoints.up('sm')]:{
@@ -76,7 +79,7 @@ class Reserve extends Component{
 
     searchBuses = () => {
         axiosInstance.post('getturnbyroute',{
-            routeId:this.state.route
+            routeId:multiWordCapitalize(this.state.route)
         })
         .then(response=>{
             console.log(response.data)
@@ -91,6 +94,10 @@ class Reserve extends Component{
             console.log('err')
             console.log(error)
         })
+    }
+
+    goToSeatMap = (event, turnID) => {
+        console.log(turnID)
     }
 
     render(){
@@ -146,10 +153,27 @@ class Reserve extends Component{
                 </Card>
             )
         }
+        let results = null;
+        if (this.state.turns != null){
+            results = this.state.turns.map(turn => (
+                <SearchCard
+                    key={turn.turnId}
+                    from={turn.startStation}
+                    to={turn.endStation}
+                    date={getDateFromJson(turn.departureTime)}
+                    departure={getTimeFromJson(turn.departureTime)}
+                    arrival={getTimeFromJson(turn.arrivalTime)}
+                    busNumber={"NA-9900"}
+                    seatArrangement={turn.busType}
+                    clicked={(event)=>this.goToSeatMap(event,turn.turnId)}
+                />
+            ))
+        }
         return(
             <React.Fragment>
                 {mainCard}
                 {message}
+                {results}
             </React.Fragment>
         )
     }

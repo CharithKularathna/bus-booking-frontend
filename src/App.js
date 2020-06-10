@@ -23,6 +23,7 @@ import RequestBus from './containers/Admin/RequestBus/RequestBus'
 import OwnerDetails from './containers/Admin/OwnerDetails/OwnerDetails'
 import Checkout from './containers/Passenger/Checkout/Checkout'
 import Reserve from './containers/Passenger/Reserve/Reserve'
+import SeatMap from './containers/Passenger/SeatMap/SeatMap'
 
 class App extends Component {
   componentDidMount() {
@@ -36,7 +37,8 @@ class App extends Component {
       authRoutes = [
         <Route exact path='/passenger/dashboard' component={GetRoutes} />,
         <Route exact path='/passenger/dashboard/getroutes' component={GetRoutes} />,
-        <Route exact path='/passenger/dashboard/reserve' component={Reserve} />
+        <Route exact path='/passenger/dashboard/reserve' component={Reserve} />,
+        <Route exact path='/passenger/dashboard/reserve/seatmap' component={SeatMap} />
       ]
     }
     if (this.props.isAuth && this.props.role == 'OWNER'){

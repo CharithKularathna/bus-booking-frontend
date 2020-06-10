@@ -15,6 +15,7 @@ import { Redirect } from 'react-router-dom'
 import { stringCapitalize, multiWordCapitalize, getDateFromJson, getTimeFromJson } from '../../../store/utility'
 import SearchCard from '../../../components/UI/SearchCard/SearchCard'
 import Typography from '@material-ui/core/Typography'
+import * as actions from '../../../store/actions/index'
 
 const styles = theme => ({
     heading:{
@@ -99,6 +100,8 @@ class Reserve extends Component{
 
     goToSeatMap = (event, turnID) => {
         console.log(turnID)
+        this.props.onReserve(turnID)
+        this.props.history.push('/passenger/dashboard/reserve/seatmap')
     }
 
     render(){
@@ -190,11 +193,9 @@ class Reserve extends Component{
 }
 
 const mapDispatchToProps = (dispatch) => {
-    /*
     return{
-        onSubmit: (formData) => dispatch(actions.booking())
+        onReserve: (turnID) => dispatch(actions.storeTurn(turnID))
     }
-    */
 }
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Reserve));

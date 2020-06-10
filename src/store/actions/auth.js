@@ -138,3 +138,10 @@ export const signup = (formData) => {
         })
     }
 }
+
+export const storeTurn = (turnID) => {
+    return {
+        type: actionTypes.STORE_TURN,
+        turnID: turnID
+    }
+}

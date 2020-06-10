@@ -8,5 +8,6 @@ export {
     startSignup,
     signupFail,
     signupSuccess,
-    signup
+    signup,
+    storeTurn
 } from './auth';

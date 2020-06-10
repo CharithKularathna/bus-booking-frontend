@@ -10,7 +10,11 @@ const initialState = {
 
 
 const reducer = ( state = initialState, action ) => {
-    
+    switch ( action.type ) {
+        case actionTypes.STORE_TURN:
+            return updateObject(state,{turnID:action.turnID})
+        default: return state;
+    }
 };
 
-export default null;
+export default reducer;

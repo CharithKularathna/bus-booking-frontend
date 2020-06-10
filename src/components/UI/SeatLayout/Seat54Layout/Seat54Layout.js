@@ -64,6 +64,7 @@ const seat54Layout = props => {
                             available
                             key={seat.id}
                             id={seat.id}
+                            clicked={props.clicked}
                         />
                     )
                 }
@@ -74,6 +75,7 @@ const seat54Layout = props => {
                             selected
                             key={seat.id}
                             id={seat.id}
+                            clicked={props.clicked}
                         />
                     )
                 }
@@ -84,6 +86,7 @@ const seat54Layout = props => {
                             unavailable
                             key={seat.id}
                             id={seat.id}
+                            
                         />
                     )
                 }

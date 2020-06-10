@@ -139,9 +139,19 @@ export const signup = (formData) => {
     }
 }
 
-export const storeTurn = (turnID) => {
+export const storeTurn = (turnID,startStation,endStation) => {
     return {
         type: actionTypes.STORE_TURN,
-        turnID: turnID
+        turnID: turnID,
+        startStation: startStation,
+        endStation: endStation
+    }
+}
+
+export const proceedToPay = (price,seats) => {
+    return {
+        type: actionTypes.PROCEED_TO_PAY,
+        totalPrice: price,
+        selectedSeats: seats
     }
 }

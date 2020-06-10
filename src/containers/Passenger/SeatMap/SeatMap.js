@@ -7,12 +7,14 @@ import Divider from '@material-ui/core/Divider'
 import Paper from '@material-ui/core/Paper'
 import Seat54Layout from '../../../components/UI/SeatLayout/Seat54Layout/Seat54Layout'
 import Typography from '@material-ui/core/Typography'
+import * as actions from '../../../store/actions/index'
 
 class SeatMap extends Component {
     state = {
         seatArray: null,
         busType: null,
-        totalPrice: 0.00
+        totalPrice: 0,
+        selectedSeats: []
     }
 
 
@@ -38,7 +40,43 @@ class SeatMap extends Component {
 
     }
 
+    seatClickHandler = (event, id) => {
+        let newSeatsArray = this.state.seatArray
+        let newTotalPrice = this.state.totalPrice
+        let newSelectedSeats = this.state.selectedSeats
+        for (let seat of newSeatsArray){
+            if (seat.id.toString() == id.toString()){
+                if (seat.status == "Available"){
+                    seat.status = "Selected"
+                    newTotalPrice = newTotalPrice + parseInt(seat.price)
+                    newSelectedSeats.push(id)
+                    break;
+                }
+                else if (seat.status == "Selected"){
+                    seat.status = "Available"
+                    newTotalPrice = newTotalPrice - parseInt(seat.price)
+                    for (let i = 0; i < newSelectedSeats.length; i++){
+                        if (newSelectedSeats[i].toString() == id.toString()){
+                            newSelectedSeats.splice(i,1)
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        console.log(newSelectedSeats)
+        this.setState({seatArray: newSeatsArray, totalPrice:newTotalPrice, selectedSeats:newSelectedSeats})
+    }
 
+    proceedHandler = () => {
+        const selectedSeats = this.state.selectedSeats.map(id => (
+            parseInt(id)
+        ))
+        const totalPrice = parseInt(this.state.totalPrice)
+        this.props.onProceed(totalPrice, selectedSeats)
+        this.props.history.push('/passenger/dashboard/reserve/checkout')
+    }
 
     render(){
         let seatLayout = null;
@@ -47,6 +85,7 @@ class SeatMap extends Component {
                 seatLayout = (
                     <Seat54Layout 
                         seatArray={this.state.seatArray}
+                        clicked={this.seatClickHandler}
                     />
                 )
                 break;
@@ -81,10 +120,10 @@ class SeatMap extends Component {
                                 <Typography variant='h5'>Sub Total:</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography variant='h4'>{'LKR ' + this.state.totalPrice.toString()}</Typography>
+                                <Typography variant='h4'>{'LKR ' + this.state.totalPrice.toString() + '.00'}</Typography>
                             </Grid>
                             <Grid item xs={12} style={{marginTop:'40px'}}>
-                                <Button color='primary' variant='contained'>Proceed</Button>
+                                <Button color='primary' size='large' variant='contained' style={{width:'130px'}} onClick={this.proceedHandler}>Proceed</Button>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -102,4 +141,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(SeatMap);
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onProceed: (totalPrice, selectedSeats) => dispatch(actions.proceedToPay(totalPrice, selectedSeats))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SeatMap);

@@ -98,9 +98,9 @@ class Reserve extends Component{
         })
     }
 
-    goToSeatMap = (event, turnID) => {
+    goToSeatMap = (event, turnID, startStation, endStation) => {
         console.log(turnID)
-        this.props.onReserve(turnID)
+        this.props.onReserve(turnID, startStation, endStation)
         this.props.history.push('/passenger/dashboard/reserve/seatmap')
     }
 
@@ -170,7 +170,7 @@ class Reserve extends Component{
                     arrival={getTimeFromJson(turn.arrivalTime)}
                     busNumber={"NA-9900"}
                     seatArrangement={turn.busType}
-                    clicked={(event)=>this.goToSeatMap(event,turn.turnId)}
+                    clicked={(event)=>this.goToSeatMap(event,turn.turnId,turn.startStation,turn.endStation)}
                 />
             ))
             resultsTitle = (
@@ -194,7 +194,7 @@ class Reserve extends Component{
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onReserve: (turnID) => dispatch(actions.storeTurn(turnID))
+        onReserve: (turnID,startStation,endStation) => dispatch(actions.storeTurn(turnID,startStation,endStation))
     }
 }
 

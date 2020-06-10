@@ -36,7 +36,7 @@ const seat = props => {
         </Button>)
     }
     else if (props.type == "Available"){
-        seat =(<Button variant="contained" className={classes.available}>
+        seat =(<Button variant="contained" className={classes.available} onClick={(event)=>props.clicked(event,props.id)}>
             {props.id}
         </Button>)
 
@@ -47,7 +47,7 @@ const seat = props => {
         </Button>)
     }
     else if (props.type == "Selected"){
-        seat = (<Button variant="contained" className={classes.selected}>
+        seat = (<Button variant="contained" className={classes.selected} onClick={(event)=>props.clicked(event,props.id)}>
             {props.id}
         </Button>)
     }

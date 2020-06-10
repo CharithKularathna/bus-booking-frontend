@@ -9,5 +9,6 @@ export {
     signupFail,
     signupSuccess,
     signup,
-    storeTurn
+    storeTurn,
+    proceedToPay
 } from './auth';

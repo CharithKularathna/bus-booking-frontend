@@ -6,11 +6,13 @@ import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 import Paper from '@material-ui/core/Paper'
 import Seat54Layout from '../../../components/UI/SeatLayout/Seat54Layout/Seat54Layout'
+import Typography from '@material-ui/core/Typography'
 
 class SeatMap extends Component {
     state = {
         seatArray: null,
-        busType: null
+        busType: null,
+        totalPrice: 0.00
     }
 
 
@@ -53,13 +55,38 @@ class SeatMap extends Component {
         }
         console.log(this.state)
         return(
-            <Paper style={{width:'95%', marginTop:'10px', marginBottom:'10px'}}>
+            <Paper style={{width:'95%', marginTop:'10px', marginBottom:'10px', textAlign:'center'}}>
+                <Typography variant='h5' style={{marginTop:'10px'}}>Seat Configuration</Typography>
+                <Divider variant='middle' />
+                <Typography variant='subtitle1' style={{color:'grey'}} >Select Seats and Proceed to Payment to Reserve your Seat</Typography>
                 <Grid container spacing={1}>
-                    <Grid item xs={9}>
+                    <Grid item xs={9} style={{textAlign:'left'}}>
                         {seatLayout}
                     </Grid>
                     <Grid item xs={3}>
-                    
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} style={{marginTop:'40px'}}>
+                                <Typography variant='body1'>Available</Typography>
+                                <Button variant='contained' disabled style={{width:'55px', height:'55px', backgroundColor:'green'}}></Button>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant='body1'>Not Available</Typography>
+                                <Button variant='contained' disabled style={{width:'55px', height:'55px', backgroundColor:'lightgrey'}}></Button>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant='body1'>Selected</Typography>
+                                <Button variant='contained' disabled style={{width:'55px', height:'55px', backgroundColor:'lightblue'}}></Button>
+                            </Grid>
+                            <Grid item xs={12} style={{marginTop:'180px'}}>
+                                <Typography variant='h5'>Sub Total:</Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant='h4'>{'LKR ' + this.state.totalPrice.toString()}</Typography>
+                            </Grid>
+                            <Grid item xs={12} style={{marginTop:'40px'}}>
+                                <Button color='primary' variant='contained'>Proceed</Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Paper>

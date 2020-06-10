@@ -1,7 +1,8 @@
 import React from 'react';
 import PaypalBtn from 'react-paypal-checkout';
 import Input from '../../../components/UI/Input/Input'
- 
+import axios from 'axios'
+
 class Checkout extends React.Component {
     state = {
         total: null,
@@ -18,13 +19,15 @@ class Checkout extends React.Component {
     render() {		
         const onSuccess = (payment) => {
             // Congratulation, it came here means everything's fine!
-            console.log("The payment was completed succeessfully!", payment);
+            console.log("The payment was completed succeessfully!");
+            console.log(payment)
             
         }		
  
         const onCancel = (data) => {
             // User pressed "cancel" or close Paypal's popup!
-            console.log('The payment was cancelled!', data);
+            console.log('The payment was cancelled!');
+            console.log(data)
         }	
  
         const onError = (err) => {

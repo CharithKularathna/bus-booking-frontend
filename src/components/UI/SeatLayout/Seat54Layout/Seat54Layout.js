@@ -93,7 +93,7 @@ const seat54Layout = props => {
 
     return(
         <div>
-            <Grid container style={{marginLeft:'20px',marginTop:'20px'}} >
+            <Grid container style={{marginLeft:'100px',marginTop:'40px'}} >
                 <Grid item xs={12}>
                     {seatMaker(rows[0])}
                 </Grid>

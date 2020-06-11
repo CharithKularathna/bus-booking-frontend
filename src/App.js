@@ -24,6 +24,8 @@ import OwnerDetails from './containers/Admin/OwnerDetails/OwnerDetails'
 import Checkout from './containers/Passenger/Checkout/Checkout'
 import Reserve from './containers/Passenger/Reserve/Reserve'
 import SeatMap from './containers/Passenger/SeatMap/SeatMap'
+import ViewBookings from './containers/Owner/ViewBookings/ViewBookings';
+import Bookings from './containers/Passenger/Bookings/Bookings';
 
 class App extends Component {
   componentDidMount() {
@@ -35,11 +37,12 @@ class App extends Component {
     let authRoutes = null
     if (this.props.isAuth && this.props.role == 'PASSENGER'){
       authRoutes = [
-        <Route exact path='/passenger/dashboard' component={GetRoutes} />,
+        <Route exact path='/passenger/dashboard' component={Reserve} />,
         <Route exact path='/passenger/dashboard/getroutes' component={GetRoutes} />,
         <Route exact path='/passenger/dashboard/reserve' component={Reserve} />,
         <Route exact path='/passenger/dashboard/reserve/seatmap' component={SeatMap} />,
-        <Route exact path='/passenger/dashboard/reserve/checkout' component={Checkout} />
+        <Route exact path='/passenger/dashboard/reserve/checkout' component={Checkout} />,
+        <Route exact path='/passenger/dashboard/bookings' component={Bookings} />
       ]
     }
     if (this.props.isAuth && this.props.role == 'OWNER'){
@@ -47,7 +50,8 @@ class App extends Component {
         <Route exact path='/owner/dashboard' component={Dashboard} />,
         <Route exact path='/owner/dashboard/addconductor' component={AddConductor} />,
         <Route exact path='/owner/dashboard/addbus' component={AddBus} />,
-        <Route exact path='/owner/dashboard/addturns' component={AddTurn} />
+        <Route exact path='/owner/dashboard/addturns' component={AddTurn} />,
+        <Route exact path='/owner/dashboard/bookings' component={ViewBookings} />
       ]
     }
     if (this.props.isAuth && this.props.role == 'ADMIN'){

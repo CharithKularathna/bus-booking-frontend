@@ -89,7 +89,7 @@ class Reserve extends Component{
                 this.setState({message:response.data.message})
             }
             if (response.data.hasOwnProperty('turns')) {
-                this.setState({turns:response.data.turns})
+                this.setState({turns:response.data.turns, message:null})
             }
         })
         .catch(error => {

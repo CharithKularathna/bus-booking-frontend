@@ -102,6 +102,12 @@ const sidebar = (props) => {
                     link:'/owner/dashboard/addturns',
                     name:'Add Turns',
                     icon: <LoopIcon fontSize='large' />
+                },
+                {
+                    link:'/owner/dashboard/bookings',
+                    name:'View Bookings',
+                    icon: <BookmarksIcon fontSize='large' />
+
                 }
             ]
             break;

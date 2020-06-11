@@ -14,7 +14,8 @@ class SeatMap extends Component {
         seatArray: null,
         busType: null,
         totalPrice: 0,
-        selectedSeats: []
+        selectedSeats: [],
+        isAllSeatsBooked: false
     }
 
 
@@ -31,7 +32,8 @@ class SeatMap extends Component {
         .then(response => {
             const seatsArray = response.data.seats
             const busType = seatsArray.length
-            this.setState({seatArray:seatsArray, busType:busType})
+            const allBooked = this.seatBookChecker(seatsArray)
+            this.setState({seatArray:seatsArray, busType:busType, isAllSeatsBooked:allBooked})
         })
         .catch(error => {
             console.log('error')
@@ -78,6 +80,34 @@ class SeatMap extends Component {
         this.props.history.push('/passenger/dashboard/reserve/checkout')
     }
 
+    seatBookChecker = (array) => {
+        for (let seatObject of array){
+            if (seatObject.status != "Unavailable"){
+                return false
+            }
+        }
+        return true
+    }
+
+    waitingListHandler = () => {
+        axiosInstance.post('addtowaiting/' + this.props.uid, {
+            turnId: this.props.turnID
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        })
+        .then(response=>{
+            console.log('Response WaitingList')
+            this.setState({isAllSeatsBooked:false})
+        })
+        .catch(err=>{
+            console.log(err)
+            console.log('error')
+        })
+    }
+
     render(){
         let seatLayout = null;
         switch (this.state.busType) {
@@ -93,6 +123,18 @@ class SeatMap extends Component {
                 seatLayout = null
         }
         console.log(this.state)
+
+        let waitingListButton = null;
+        if (this.state.isAllSeatsBooked){
+            waitingListButton = (<Grid item xs={12}>
+                <Button color='secondary' size='large' variant='contained' style={{width:'130px'}} onClick={this.waitingListHandler}>Add to the WaitingList</Button>
+            </Grid>)
+        }
+        else {
+            waitingListButton = (<Grid item xs={12}>
+            <Button disabled color='secondary' size='large' variant='contained' style={{width:'130px'}} onClick={this.waitingListHandler}>Add to the WaitingList</Button>
+        </Grid>)
+        }
         return(
             <Paper style={{width:'95%', marginTop:'10px', marginBottom:'10px', textAlign:'center'}}>
                 <Typography variant='h5' style={{marginTop:'10px'}}>Seat Configuration</Typography>
@@ -122,7 +164,8 @@ class SeatMap extends Component {
                             <Grid item xs={12}>
                                 <Typography variant='h4'>{'LKR ' + this.state.totalPrice.toString() + '.00'}</Typography>
                             </Grid>
-                            <Grid item xs={12} style={{marginTop:'40px'}}>
+                            {waitingListButton}
+                            <Grid item xs={12} style={{marginTop:'20px'}}>
                                 <Button color='primary' size='large' variant='contained' style={{width:'130px'}} onClick={this.proceedHandler}>Proceed</Button>
                             </Grid>
                         </Grid>

@@ -7,11 +7,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     root: {
       width: '90%',
       marginTop: '10px',
-      marginBottom: '10px'
+      marginBottom: '10px',
+      borderRadius: '5px'
     },
     bullet: {
       display: 'inline-block',
@@ -19,15 +20,21 @@ const useStyles = makeStyles({
       transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
+      fontSize: 18,
     },
     pos: {
       marginBottom: 12,
     },
     button: {
         marginLeft:'90%'
+    },
+    fromTitle: {
+        color: theme.palette.secondary.dark
+    },
+    toTitle: {
+        color: theme.palette.secondary.dark
     }
-  })
+  }))
 
 const searchCard = (props) => {
     const classes = useStyles();
@@ -72,7 +79,7 @@ const searchCard = (props) => {
                     </Grid>
                 </CardContent>
                 <CardActions>
-                    <Button className={classes.button} color='primary' onClick={props.clicked}>Reserve Seats</Button>
+                    <Button className={classes.button} variant='contained' color='primary' onClick={props.clicked}>Reserve Seats</Button>
                 </CardActions>
             </Card>
         </React.Fragment>

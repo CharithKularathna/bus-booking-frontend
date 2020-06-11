@@ -105,23 +105,19 @@ class RequestBus extends Component {
     }
     acceptHandler = () => {
         console.log(this.state.user)
-        /*
-        axiosInstance.post('newbusrequests/' + this.props.uid,{
-            ownerId:this.state.user.id,
-            firstName:this.state.user.firstName,
-            secondName:this.state.user.secondName,
-            email:this.state.user.email,
-            phoneNumber:phoneNumberFormatter(this.state.user.phoneNumber),
-            phone_verified:true,
-            address:this.state.user.address,
-            nic:this.state.user.nic
+        axiosInstance.post('acceptbus/' + this.props.uid,{
+            reqId:this.state.user.busID,
+            windowSeatPrice:parseInt(this.state.user.windowSeatPrice),
+            JumpingSeatPrice:false,
+            NormalSeatPrice:parseInt(this.state.user.NormalSeatPrice)
         },
         {
             headers: {
                 'Authorization': `Bearer ${this.props.token}`
             }
         }).then( response => {
-            //console.log(response)
+            console.log('response')
+            console.log(response)
             this.resetState()
             //console.log(this.state)
             //console.log(this.props)
@@ -129,10 +125,11 @@ class RequestBus extends Component {
             this.fetchData()
             
         }).catch( error => {
+            console.log('error')
             console.log(error)
             this.resetState()
         })
-        */    
+   
     }
 
     acceptCloseHandler = () => {
@@ -239,6 +236,7 @@ class RequestBus extends Component {
                     title={"Approve the Bus Registration Request"}
                     clicked={this.state.accepting}
                     handleClose={this.acceptCloseHandler}
+                    handleSubmit={this.acceptHandler}
                     inputChangeHandler={this.formDataHandler}
                     formElementsArray={formElementsArray}
                 />

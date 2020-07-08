@@ -78,3 +78,11 @@
 .FormTitle {
   text-align: center;
 }
+
+.bb {
+    z-index: 1;
+}
+
+.bb:before {
+    z-index: 1;
+}

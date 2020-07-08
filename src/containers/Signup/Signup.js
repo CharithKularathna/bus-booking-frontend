@@ -195,7 +195,7 @@ class Signup extends Component {
             <br />
             <p><b>By Signing up you agree to the Terms and Conditions of BusBooking</b></p>
             <br />
-            <button disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+            <button className={classes.bb} disabled={!this.state.validForm} className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
         </form>)
 
         if (this.props.loading){

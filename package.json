@@ -2,6 +2,10 @@
   "name": "transport-booking-system-client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "11.6.0",
+    "npm": "6.5.0"
+  },
   "dependencies": {
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",

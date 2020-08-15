@@ -115,7 +115,7 @@ class GetRoutes extends Component {
         return(
             <React.Fragment>
                 <Card className={classes.mainCard} >
-                    <CardHeader className={classes.heading} title="GetRoutes a Bus Seat" subheader="Search a Bus by start, destination and date of your travel"/>
+                    <CardHeader className={classes.heading} title="Get Routes" subheader="Search a Bus by start, destination and date of your travel"/>
                     <Divider className={classes.divider} />    
                         <Grid container spacing={3}>
                             <Grid item xs={10} sm={3} className = {classes.select}>

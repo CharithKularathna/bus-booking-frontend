@@ -116,7 +116,11 @@ class Reserve extends Component{
         console.log(optionsArray)
         let message = null;
         if (this.state.message != null){
-            message = <Alert type="Error" style={{marginTop:'-50px'}}>No Turns Found</Alert>
+            message = (
+                <div style={{marginTop:"-250px", width:'100%'}}>
+                    <Alert type="Error">No Turns Found</Alert>
+                </div>
+            )
         }
         let mainCard = <div><Spinner /></div>
         if (this.state.loading == false){
@@ -173,19 +177,21 @@ class Reserve extends Component{
                     clicked={(event)=>this.goToSeatMap(event,turn.turnId,turn.startStation,turn.endStation)}
                 />
             ))
-            resultsTitle = (
-                <div style={{textAlign: 'left', marginBottom:'10px'}} >
-                    <Typography variant='h5'>Search Results</Typography>
-                    <Divider variant='fullWidth' style={{width:'100%'}}/>
-                </div>
-                
-            )
+            if (this.state.message == null){
+                resultsTitle = (
+                    <div style={{textAlign: 'left', marginBottom:'10px', height:'80px', marginTop:'-260px'}} >
+                        <Typography variant='h5'>Search Results</Typography>
+                        <Divider variant='fullWidth' style={{width:'100%'}}/>
+                    </div>
+                    
+                )
+            }
         }
         return(
             <React.Fragment>
                 {mainCard}
-                {message}
                 {resultsTitle}
+                {message}
                 {results}
             </React.Fragment>
         )

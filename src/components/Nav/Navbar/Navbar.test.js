@@ -23,7 +23,4 @@ describe('<NavBar />',() => {
         expect(wrapper.find("li")).toHaveLength(3)
     })
 
-    
-
-
 })

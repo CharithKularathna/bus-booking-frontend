@@ -91,7 +91,7 @@ class Bookings extends Component{
     render(){
         const {classes} = this.props
         let tabledata = []
-        if (this.state.bookingsArray !== null){
+        if (this.state.bookingsArray){
             tabledata = this.state.bookingsArray.map(entry => (
                 {
                     bookingID:entry.bookingid,

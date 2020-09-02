@@ -163,6 +163,7 @@ class Reserve extends Component{
         }
         let results = null;
         let resultsTitle = null;
+        let resultsFooter = null;
         if (this.state.turns != null){
             results = this.state.turns.map(turn => (
                 <SearchCard
@@ -177,6 +178,7 @@ class Reserve extends Component{
                     clicked={(event)=>this.goToSeatMap(event,turn.turnId,turn.startStation,turn.endStation)}
                 />
             ))
+            resultsFooter = <p style={{color:'grey',textAlign:'center'}}>Page 1 of 1</p>
             if (this.state.message == null){
                 resultsTitle = (
                     <div style={{textAlign: 'left', marginBottom:'10px', height:'80px', marginTop:'-260px'}} >

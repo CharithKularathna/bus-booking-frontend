@@ -48,8 +48,8 @@ class GetRoutes extends Component {
     state = {
         options:[
             'Ambalangoda','Ampara','Anuradhapura','Badulla','Bandarawela','Colombo','Embilipitiya',
-            'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura',
-
+            'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura','Jafna','Trincomalee','Moratuwa',
+            'Pettah','Piliyandala'
         ],
         searched:false,
         turn: {

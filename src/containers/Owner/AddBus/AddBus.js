@@ -71,12 +71,14 @@ class AddBus extends Component {
             origin:
                 [
                     'Ambalangoda','Ampara','Anuradhapura','Badulla','Bandarawela','Colombo','Embilipitiya',
-                    'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura'
+                    'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura','Jafna','Trincomalee','Moratuwa',
+                    'Pettah','Piliyandala'
                 ],
             destination:
                 [
                     'Ambalangoda','Ampara','Anuradhapura','Badulla','Bandarawela','Colombo','Embilipitiya',
-                    'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura'
+                    'Galle','Hambanthota','Jaffna','Kataragama','Kurunegala','Monaragala','Matara','Ratnapura','Jafna','Trincomalee','Moratuwa',
+                    'Pettah','Piliyandala'
                 ],
             bustype:
                 [

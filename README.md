@@ -2,7 +2,7 @@
 
 This is the front-end web application of an online bus seat booking platform. The main users of the system are passengers, bus owners, and conductors. Passengers can reserve seats using by registering/logging in, and then doing payments using Paypal. Bus owners can register their buses on our app and add turns/routes so that passengers can reserve seats accordingly.
 
-🌎 [https://www.busbooking-frontend.web.app/](https://www.busbooking-frontend.web.app/)
+🌎 [busbooking-frontend.web.app/](https://www.busbooking-frontend.web.app/)
 
 ## Technologies Used
 

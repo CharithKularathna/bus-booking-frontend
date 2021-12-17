@@ -49,7 +49,8 @@ npm start
 
 ## Sample Images and Screenshots 
 
-
+![Home](https://user-images.githubusercontent.com/47145853/146514209-9c4e45f7-8e39-4e34-bdec-54dfa1ae5a9e.png)
+![Sign in](https://user-images.githubusercontent.com/47145853/146513996-8e04181a-d46c-4836-93aa-83584496be07.png)
 
 
 

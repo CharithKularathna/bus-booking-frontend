@@ -17,23 +17,7 @@ This is the front-end web application of an online bus seat booking platform. Th
     <a style="padding-right:8px;" href="https://nodejs.org" target="_blank"> <img src="https://img.icons8.com/color/48/000000/nodejs.png"/> </a>
     <a style="padding-right:8px;" href="" target="_blank"> <img src="https://img.icons8.com/color/48/000000/google-firebase-console.png"/> </a>
 </p>
-
-## Folder Stucture
-
-The important files and directories of the repository is shown below
-
-    ├── data : all player data data scraped from the [website](http://en.wikipedia.org/)                    
-        ├── sin : contains all sinhala translated and unicode converted .json documents
-        └── 01.json - 202.json : all player data scraped from [website](http://en.wikipedia.org/) in English
-    ├── templates : contains index.html which is the main webpage of the system.
-    ├── Scraping : contains the python script used to scrape data from [website](http://en.wikipedia.org/) in English                 
-        └── web-scrape.py : python script used to scrape data
-    ├── app.py : Backend of the web application developed using Flask framework
-    ├── makeIndex.py : Script to create the index on elasticsearch cluster
-    ├── search.py : Query/Search functions and other support functions
-    ├── sample_queries.txt :  Sample queries          
-
-
+        
 ### Launching the Web Appication Locally
 
 ```commandline

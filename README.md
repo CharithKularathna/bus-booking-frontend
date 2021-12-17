@@ -1,6 +1,6 @@
 # BusBooking
 
-This is the front-end web application an online bus seat booking platform. The main users of the system are passengers, bus owners, and conductors. Passengers can reserve seats using by registering/logging in, and then doing payments using Paypal. Bus owners can regiter their buses on our app and add turns/routes so that pasengers can reserve seats accordingly.
+This is the front-end web application of an online bus seat booking platform. The main users of the system are passengers, bus owners, and conductors. Passengers can reserve seats using by registering/logging in, and then doing payments using Paypal. Bus owners can register their buses on our app and add turns/routes so that passengers can reserve seats accordingly.
 
 🌎 [https://www.busbooking-frontend.web.app/](https://www.busbooking-frontend.web.app/)
 
@@ -39,6 +39,8 @@ The important files and directories of the repository is shown below
 ```commandline
 git clone https://github.com/CharithKularathna/bus-booking-frontend
 
+cd transport-booking-system-client
+
 npm install
 
 npm start
@@ -46,6 +48,7 @@ npm start
 
 
 ## Sample Images and Screenshots 
+
 
 
 

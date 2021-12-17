@@ -50,8 +50,12 @@ npm start
 ## Sample Images and Screenshots 
 
 ![Home](https://user-images.githubusercontent.com/47145853/146514209-9c4e45f7-8e39-4e34-bdec-54dfa1ae5a9e.png)
-<br />
 ![Sign in](https://user-images.githubusercontent.com/47145853/146513996-8e04181a-d46c-4836-93aa-83584496be07.png)
+![Reserve Seat](https://user-images.githubusercontent.com/47145853/146514072-d75e429f-eb54-4981-8f0f-67f6a522c3e9.png)
+![Owner - Bookings](https://user-images.githubusercontent.com/47145853/146514093-dd6832df-e9bd-40cc-9a10-7c3e8083c7d1.png)
+![Admin - Bus Requests](https://user-images.githubusercontent.com/47145853/146514113-9920392b-b48a-4fc8-89f0-aad80573b040.png)
+![Admin - Owner Details and Turns](https://user-images.githubusercontent.com/47145853/146514115-962fc03b-5e07-46e9-8525-89df7ab46eea.png)
+
 
 
 
